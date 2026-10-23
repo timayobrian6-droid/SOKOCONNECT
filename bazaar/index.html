@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Soko Connect</title>
+  <meta name="description" content="Soko Connect is a free, dense multi-category online marketplace template built with Bootstrap 5 and vanilla JavaScript — deal carousel, flash-sale countdown, best-seller grid and a full product page. Fully dependency-free.">
+  <meta name="theme-color" content="#0d5c63">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d5c63'/%3E%3Ctext x='16' y='23' font-family='Arial Black,sans-serif' font-size='19' font-weight='900' text-anchor='middle' fill='%23f6a609'%3EB%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"OnlineStore","name":"Bazaar","url":"https://bazaar.example","description":"Multi-category online marketplace for electronics, home, audio and gaming.","slogan":"Everything you need, one busy marketplace."}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===== TOP UTILITY BAR ===== -->
+  <div class="topbar">
+    <div class="wrap">
+      <div class="tb-left">
+        <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h13v10H3z"></path><path d="M16 8h3l3 3v2h-6"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg>
+        <span>Free delivery in Nairobi || Affordable delivery prices countrywide</span>
+      </div>
+      <div class="tb-right">
+        <a class="tb-link" href="#main">
+          <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"></rect><path d="M3 8h18"></path><circle cx="9" cy="13" r="1.4"></circle></svg>
+          Track order
+        </a>
+        <span class="tb-sep" aria-hidden="true"></span>
+        <a class="tb-link" href="#main">Sell on Bazaar</a>
+        <span class="tb-sep" aria-hidden="true"></span>
+        <a class="tb-link" href="#main">
+          <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path></svg>
+          EN / USD
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="wrap">
+      <div class="header-main">
+        <button class="hact nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-controls="mnav" aria-expanded="false">
+          <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+          <span class="hact-txt">Menu</span>
+        </button>
+
+        <a class="brand" href="index.html" aria-label="Bazaar home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg class="svg-ico" viewBox="0 0 24 24"><path d="M3 6h18l-1.6 9.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.7L4.5 4H2"></path><circle cx="9" cy="20" r="1.4"></circle><circle cx="17" cy="20" r="1.4"></circle></svg>
+          </span>
+          <span>
+            <span class="brand-word">Sok<b>O</b>C<b>O</b>nnect</b></span>
+            <span class="brand-sub">Everything Marketplace</span>
+          </span>
+        </a>
+
+        <form class="searchbar" role="search" onsubmit="return false;">
+          <label class="visually-hidden" for="searchCat">Search category</label>
+          <select class="cat-select" id="searchCat">
+            <option>All Departments</option>
+            <option>Grains</option>
+            <option>Meat</option>
+            <option>Poultry</option>
+            <option>Livestock</option>
+            <option>Cereals</option>
+            <option>Dairy</option>
+          </select>
+          <label class="visually-hidden" for="searchInput">Search products</label>
+          <input id="searchInput" type="search" placeholder="Search 500+ products — try &quot;pogit ultry&quot;" autocomplete="off">
+          <button class="search-btn" type="submit" aria-label="Search">
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+          </button>
+        </form>
+
+        <div class="header-actions">
+          <a class="hact" href="#main">
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+            <span class="hact-txt">Account</span>
+          </a>
+          <button class="hact wishlist-act" type="button" aria-label="Wishlist, 2 items saved">
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg>
+            <span class="hact-txt">Wishlist</span>
+            <span class="count" data-wish-count>2</span>
+          </button>
+          <button class="hact cart" type="button" aria-label="Cart, 3 items">
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.6"></circle><circle cx="18" cy="20" r="1.6"></circle><path d="M2 3h3l2.4 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L23 7H6"></path></svg>
+            <span class="hact-txt">Cart</span>
+            <span class="count" data-cart-count>3</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- department nav -->
+    <nav class="deptnav" aria-label="Departments">
+      <div class="wrap">
+        <a class="dept-all" href="#categories">
+          <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+          All Departments
+        </a>
+        <a class="dept-link" href="#bestsellers">Best Sellers</a>
+        <a class="dept-link" href="#categories">Electronics</a>
+        <a class="dept-link" href="#bestsellers">Computers</a>
+        <a class="dept-link" href="#bestsellers">Audio</a>
+        <a class="dept-link" href="#spotlight">Home &amp; Kitchen</a>
+        <a class="dept-link" href="#bestsellers">Gaming</a>
+        <a class="dept-link" href="#categories">Wearables</a>
+        <a class="dept-link hot" href="#flash">Today's Deals</a>
+        <span class="dept-spacer"></span>
+        <span class="dept-phone">
+          <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 13l1 4v3a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 0-1z"></path></svg>
+          Help: 1-800-BAZAAR
+        </span>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ===== HERO ===== -->
+    <section class="hero" aria-label="Featured deals">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div class="deal-carousel" id="dealCarousel" aria-roledescription="carousel" aria-label="Deal of the day">
+            <div class="deal-slide active">
+              <div class="deal-media"><img src="img/hero-electronics.jpg" alt="A workspace with laptops, monitors and gadgets on sale"></div>
+              <div class="deal-body">
+                <span class="tag tag-gold">Mega Tech Days</span>
+                <h2>Save up to 40% on gear</h2>
+                <p>Laptops, phones, 4K cameras and everything that beeps — restocked and discounted for one week only.</p>
+                <div class="deal-price">Deals start at <span class="big">$59</span> <s>$99</s></div>
+                <a class="btn-bz btn-gold" href="#bestsellers">Shop electronics
+                  <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                </a>
+              </div>
+            </div>
+            <div class="deal-slide">
+              <div class="deal-media"><img src="img/hero-audio.jpg" alt="Over-ear headphones and portable speakers"></div>
+              <div class="deal-body">
+                <span class="tag tag-gold">Sound, Unboxed</span>
+                <h2>Audio built for the commute</h2>
+                <p>Active-noise headphones, pocket speakers and true-wireless buds tuned by real engineers, not marketing.</p>
+                <div class="deal-price">Aurora Studio ANC <span class="big">$149</span> <s>$219</s></div>
+                <a class="btn-bz btn-gold" href="#bestsellers">Shop audio
+                  <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                </a>
+              </div>
+            </div>
+            <div class="deal-slide">
+              <div class="deal-media"><img src="img/hero-home.jpg" alt="Modern home appliances and living room gadgets"></div>
+              <div class="deal-body">
+                <span class="tag tag-gold">Every Room Upgraded</span>
+                <h2>Smart home, delivered free</h2>
+                <p>Robot vacuums, espresso machines and connected lighting to make the place run itself.</p>
+                <div class="deal-price">Home essentials from <span class="big">$19</span></div>
+                <a class="btn-bz btn-gold" href="#spotlight">Shop home
+                  <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                </a>
+              </div>
+            </div>
+            <button class="deal-arrow prev" type="button" aria-label="Previous deal"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+            <button class="deal-arrow next" type="button" aria-label="Next deal"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+            <div class="deal-dots" role="tablist" aria-label="Choose deal"></div>
+          </div>
+
+          <div class="promo-stack">
+            <article class="promo-card">
+              <div class="promo-bg" aria-hidden="true"><img src="img/p-phone.jpg" alt=""></div>
+              <div>
+                <span class="tag tag-gold">New member</span>
+                <h3>15% off your first order</h3>
+                <p>Join Bazaar Prime free and unlock member pricing across every department.</p>
+              </div>
+              <a class="promo-link" href="#newsletter">Claim your code
+                <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+              </a>
+            </article>
+            <article class="promo-card alt">
+              <div class="promo-bg" aria-hidden="true"><img src="img/p-vacuum.jpg" alt=""></div>
+              <div>
+                <span class="tag tag-red">Clearance outlet</span>
+                <h3>Up to 60% off open-box</h3>
+                <p>Certified, tested and warrantied returns at a fraction of retail. While stock lasts.</p>
+              </div>
+              <a class="promo-link" href="#bestsellers">Shop the outlet
+                <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+              </a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CATEGORY RAIL ===== -->
+    <section class="catrail reveal" id="categories" aria-label="Shop by category">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Browse the aisles</span>
+            <h2>Shop by category</h2>
+          </div>
+          <a class="see-all" href="#bestsellers">All 42 departments
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </a>
+        </div>
+        <div class="catrail-track">
+          <a class="cat-tile" href="#bestsellers"><span class="cat-ic"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"></path></svg></span><span class="cat-name">Electronics</span><span class="cat-count">8,240 items</span></a>
+          <a class="cat-tile" href="#bestsellers"><span class="cat-ic"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-1a8 8 0 0 1 16 0v1"></path><rect x="2" y="13" width="4" height="7" rx="1.5"></rect><rect x="18" y="13" width="4" height="7" rx="1.5"></rect></svg></span><span class="cat-name">Audio</span><span class="cat-count">1,905 items</span></a>
+          <a class="cat-tile" href="#bestsellers"><span class="cat-ic"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="12" rx="1.5"></rect><path d="M8 20h8M12 16v4"></path></svg></span><span class="cat-name">Computers</span><span class="cat-count">3,110 items</span></a>
+          <a class="cat-tile" href="#bestsellers"><span class="cat-ic"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path><rect x="10" y="14" width="4" height="6"></rect></svg></span><span class="cat-name">Home &amp; Kitchen</span><span class="cat-count">6,480 items</span></a>
+          <a class="cat-tile" href="#bestsellers"><span class="cat-ic"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="5"></rect><path d="M7 10v4M5 12h4"></path><circle cx="16" cy="11" r="1"></circle><circle cx="18.5" cy="13.5" r="1"></circle></svg></span><span class="cat-name">Gaming</span><span class="cat-count">2,760 items</span></a>
+          <a class="cat-tile" href="#bestsellers"><span class="cat-ic"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="6" width="10" height="12" rx="2.5"></rect><path d="M9 6l.6-3h4.8L15 6M9 18l.6 3h4.8l.6-3"></path></svg></span><span class="cat-name">Wearables</span><span class="cat-count">980 items</span></a>
+          <a class="cat-tile" href="#bestsellers"><span class="cat-ic"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3l2-2h8l2 2h3v11H3z"></path><circle cx="12" cy="13" r="4"></circle></svg></span><span class="cat-name">Cameras</span><span class="cat-count">1,340 items</span></a>
+          <a class="cat-tile" href="#bestsellers"><span class="cat-ic"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5"></rect><path d="M11 18h2"></path></svg></span><span class="cat-name">Phones</span><span class="cat-count">2,015 items</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FLASH DEALS ===== -->
+    <section class="flash reveal" id="flash" aria-label="Flash deals">
+      <div class="wrap">
+        <div class="flash-panel">
+          <div class="flash-top">
+            <div class="flash-title">
+              <span class="bolt" aria-hidden="true"><svg class="svg-ico" viewBox="0 0 24 24"><path d="M13 2L4 14h6l-1 8 9-12h-6z"></path></svg></span>
+              <div>
+                <h2>Flash Deals</h2>
+                <span class="sub">Handpicked prices, refreshed twice a day</span>
+              </div>
+            </div>
+            <div class="countdown" id="countdown" aria-label="Time remaining in this flash sale" role="timer">
+              <span class="cd-label">Ends in</span>
+              <div class="cd-units">
+                <span class="cd-box"><b data-cd="h">07</b><span>hrs</span></span>
+                <span class="cd-colon" aria-hidden="true">:</span>
+                <span class="cd-box"><b data-cd="m">42</b><span>min</span></span>
+                <span class="cd-colon" aria-hidden="true">:</span>
+                <span class="cd-box"><b data-cd="s">15</b><span>sec</span></span>
+              </div>
+            </div>
+          </div>
+          <div class="flash-grid">
+            <article class="flash-item">
+              <div class="fi-frame"><img src="img/p-camera.jpg" alt="Lumen X20 mirrorless camera"><span class="tag tag-red disc">-40%</span></div>
+              <h3 class="fi-name">Lumen X20 Mirrorless Camera Kit</h3>
+              <div class="fi-price"><span class="now">$749</span><s>$1,249</s></div>
+              <div class="fi-stock">
+                <div class="fi-bar"><i data-fill="22"></i></div>
+                <small>Only <b>6 left</b> — 42 sold</small>
+              </div>
+            </article>
+            <article class="flash-item">
+              <div class="fi-frame"><img src="img/p-lamp.jpg" alt="Halo LED desk lamp"><span class="tag tag-red disc">-35%</span></div>
+              <h3 class="fi-name">Halo LED Desk Lamp with USB-C</h3>
+              <div class="fi-price"><span class="now">$45</span><s>$69</s></div>
+              <div class="fi-stock">
+                <div class="fi-bar"><i data-fill="58"></i></div>
+                <small><b>21 left</b> — 29 sold</small>
+              </div>
+            </article>
+            <article class="flash-item">
+              <div class="fi-frame"><img src="img/p-router.jpg" alt="Trailblaze WiFi 6 router"><span class="tag tag-red disc">-25%</span></div>
+              <h3 class="fi-name">Trailblaze WiFi 6 Mesh Router (2-pk)</h3>
+              <div class="fi-price"><span class="now">$134</span><s>$179</s></div>
+              <div class="fi-stock">
+                <div class="fi-bar"><i data-fill="40"></i></div>
+                <small><b>14 left</b> — 21 sold</small>
+              </div>
+            </article>
+            <article class="flash-item">
+              <div class="fi-frame"><img src="img/p-blender.jpg" alt="Whirl Pro high-speed blender"><span class="tag tag-red disc">-30%</span></div>
+              <h3 class="fi-name">Whirl Pro 1200W High-Speed Blender</h3>
+              <div class="fi-price"><span class="now">$97</span><s>$139</s></div>
+              <div class="fi-stock">
+                <div class="fi-bar"><i data-fill="12"></i></div>
+                <small>Only <b>3 left</b> — 47 sold</small>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BEST SELLERS ===== -->
+    <section class="section reveal" id="bestsellers" aria-label="Best sellers">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Most added to cart this week</span>
+            <h2>Best sellers</h2>
+            <p class="sub">Ranked by real order volume across all departments — updated every night.</p>
+          </div>
+          <div class="filter-tabs" role="tablist" aria-label="Filter best sellers by department">
+            <button type="button" data-filter="all" aria-selected="true">All</button>
+            <button type="button" data-filter="electronics" aria-selected="false">Electronics</button>
+            <button type="button" data-filter="audio" aria-selected="false">Audio</button>
+            <button type="button" data-filter="home" aria-selected="false">Home</button>
+            <button type="button" data-filter="gaming" aria-selected="false">Gaming</button>
+            <button type="button" data-filter="wearables" aria-selected="false">Wearables</button>
+          </div>
+        </div>
+
+        <div class="pgrid">
+          <!-- 1 -->
+          <article class="pcard" data-category="audio">
+            <div class="pframe">
+              <img src="img/p-headphones.jpg" alt="Aurora Studio wireless over-ear headphones">
+              <div class="pbadges"><span class="tag tag-red">-32%</span><span class="tag tag-teal">Top rated</span></div>
+              <button class="wish" type="button" aria-label="Save Aurora Studio headphones to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Audio</span>
+              <h3 class="pname"><a href="product.html">Aurora Studio Wireless ANC Headphones</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.8 (2,341)</span></div>
+              <div class="pprice"><span class="now">$149</span><s>$219</s><span class="save">Save $70</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Aurora Studio Headphones">Add to cart</button>
+            </div>
+          </article>
+          <!-- 2 -->
+          <article class="pcard" data-category="electronics">
+            <div class="pframe">
+              <img src="img/p-laptop.jpg" alt="Kestrel 14 ultrabook laptop">
+              <div class="pbadges"><span class="tag tag-red">-18%</span></div>
+              <button class="wish" type="button" aria-label="Save Kestrel 14 ultrabook to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Computers</span>
+              <h3 class="pname"><a href="product.html">Kestrel 14 Ultrabook · 16GB / 512GB SSD</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg class="empty" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.6 (1,088)</span></div>
+              <div class="pprice"><span class="now">$899</span><s>$1,099</s><span class="save">Save $200</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Kestrel 14 Ultrabook">Add to cart</button>
+            </div>
+          </article>
+          <!-- 3 -->
+          <article class="pcard" data-category="wearables">
+            <div class="pframe">
+              <img src="img/p-smartwatch.jpg" alt="Pulse Fit 3 smartwatch">
+              <div class="pbadges"><span class="tag tag-red">-22%</span></div>
+              <button class="wish" type="button" aria-label="Save Pulse Fit 3 smartwatch to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Wearables</span>
+              <h3 class="pname"><a href="product.html">Pulse Fit 3 GPS Smartwatch</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.7 (3,902)</span></div>
+              <div class="pprice"><span class="now">$179</span><s>$229</s><span class="save">Save $50</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Pulse Fit 3 Smartwatch">Add to cart</button>
+            </div>
+          </article>
+          <!-- 4 -->
+          <article class="pcard" data-category="audio">
+            <div class="pframe">
+              <img src="img/p-speaker.jpg" alt="Boombox Mini bluetooth speaker">
+              <div class="pbadges"><span class="tag tag-red">-34%</span></div>
+              <button class="wish" type="button" aria-label="Save Boombox Mini speaker to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Audio</span>
+              <h3 class="pname"><a href="product.html">Boombox Mini Portable Speaker</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg class="empty" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.5 (876)</span></div>
+              <div class="pprice"><span class="now">$59</span><s>$89</s><span class="save">Save $30</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Boombox Mini Speaker">Add to cart</button>
+            </div>
+          </article>
+          <!-- 5 -->
+          <article class="pcard" data-category="electronics">
+            <div class="pframe">
+              <img src="img/p-phone.jpg" alt="Nova S12 5G smartphone">
+              <div class="pbadges"><span class="tag tag-teal">New</span></div>
+              <button class="wish" type="button" aria-label="Save Nova S12 smartphone to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Phones</span>
+              <h3 class="pname"><a href="product.html">Nova S12 5G Smartphone · 256GB</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.7 (1,564)</span></div>
+              <div class="pprice"><span class="now">$649</span><s>$749</s><span class="save">Save $100</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Nova S12 Smartphone">Add to cart</button>
+            </div>
+          </article>
+          <!-- 6 -->
+          <article class="pcard" data-category="electronics">
+            <div class="pframe">
+              <img src="img/p-drone.jpg" alt="SkyRover 4K camera drone">
+              <div class="pbadges"><span class="tag tag-red">-21%</span></div>
+              <button class="wish" type="button" aria-label="Save SkyRover drone to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Cameras</span>
+              <h3 class="pname"><a href="product.html">SkyRover 4K Camera Drone</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg class="empty" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.4 (612)</span></div>
+              <div class="pprice"><span class="now">$499</span><s>$629</s><span class="save">Save $130</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="SkyRover 4K Drone">Add to cart</button>
+            </div>
+          </article>
+          <!-- 7 -->
+          <article class="pcard" data-category="gaming">
+            <div class="pframe">
+              <img src="img/p-keyboard.jpg" alt="Clack mechanical keyboard">
+              <div class="pbadges"><span class="tag tag-red">-25%</span></div>
+              <button class="wish" type="button" aria-label="Save Clack keyboard to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Gaming</span>
+              <h3 class="pname"><a href="product.html">Clack RGB Mechanical Keyboard</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.8 (2,006)</span></div>
+              <div class="pprice"><span class="now">$89</span><s>$119</s><span class="save">Save $30</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Clack Mechanical Keyboard">Add to cart</button>
+            </div>
+          </article>
+          <!-- 8 -->
+          <article class="pcard" data-category="gaming">
+            <div class="pframe">
+              <img src="img/p-monitor.jpg" alt="Vertex 27-inch gaming monitor">
+              <div class="pbadges"><span class="tag tag-red">-20%</span></div>
+              <button class="wish" type="button" aria-label="Save Vertex monitor to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Gaming</span>
+              <h3 class="pname"><a href="product.html">Vertex 27" 165Hz Gaming Monitor</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg class="empty" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.6 (1,433)</span></div>
+              <div class="pprice"><span class="now">$279</span><s>$349</s><span class="save">Save $70</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Vertex 27-inch Monitor">Add to cart</button>
+            </div>
+          </article>
+          <!-- 9 -->
+          <article class="pcard" data-category="home">
+            <div class="pframe">
+              <img src="img/p-vacuum.jpg" alt="Orbit robot vacuum">
+              <div class="pbadges"><span class="tag tag-red">-21%</span><span class="tag tag-teal">Top rated</span></div>
+              <button class="wish" type="button" aria-label="Save Orbit robot vacuum to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Home &amp; Kitchen</span>
+              <h3 class="pname"><a href="product.html">Orbit X5 Robot Vacuum + Mop</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.7 (5,120)</span></div>
+              <div class="pprice"><span class="now">$259</span><s>$329</s><span class="save">Save $70</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Orbit X5 Robot Vacuum">Add to cart</button>
+            </div>
+          </article>
+          <!-- 10 -->
+          <article class="pcard" data-category="home">
+            <div class="pframe">
+              <img src="img/p-coffee.jpg" alt="Brew Master Pro espresso machine">
+              <div class="pbadges"><span class="tag tag-red">-25%</span></div>
+              <button class="wish" type="button" aria-label="Save Brew Master Pro to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Home &amp; Kitchen</span>
+              <h3 class="pname"><a href="product.html">Brew Master Pro Espresso Machine</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg class="empty" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.5 (1,780)</span></div>
+              <div class="pprice"><span class="now">$119</span><s>$159</s><span class="save">Save $40</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Brew Master Pro">Add to cart</button>
+            </div>
+          </article>
+          <!-- 11 -->
+          <article class="pcard" data-category="audio">
+            <div class="pframe">
+              <img src="img/p-earbuds.jpg" alt="Aurora Buds Pro earbuds">
+              <div class="pbadges"><span class="tag tag-red">-33%</span></div>
+              <button class="wish" type="button" aria-label="Save Aurora Buds Pro to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Audio</span>
+              <h3 class="pname"><a href="product.html">Aurora Buds Pro · Active Noise Cancelling</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.6 (4,210)</span></div>
+              <div class="pprice"><span class="now">$99</span><s>$149</s><span class="save">Save $50</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Aurora Buds Pro">Add to cart</button>
+            </div>
+          </article>
+          <!-- 12 -->
+          <article class="pcard" data-category="electronics">
+            <div class="pframe">
+              <img src="img/p-tablet.jpg" alt="Slate Pad Air tablet">
+              <div class="pbadges"><span class="tag tag-red">-18%</span></div>
+              <button class="wish" type="button" aria-label="Save Slate Pad Air to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Computers</span>
+              <h3 class="pname"><a href="product.html">Slate Pad Air 11" Tablet · 128GB</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.7 (2,988)</span></div>
+              <div class="pprice"><span class="now">$329</span><s>$399</s><span class="save">Save $70</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Slate Pad Air">Add to cart</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BRANDS ===== -->
+    <section class="brands reveal" aria-label="Brands we carry">
+      <div class="wrap">
+        <div class="brands-row">
+          <span class="brand-logo" title="Northwind">
+            <svg viewBox="0 0 120 26" role="img" aria-label="Northwind"><path d="M4 22V4l7 12V4h3v18h-3L4 10v12z" fill="currentColor"/><text x="26" y="19" font-family="IBM Plex Sans,sans-serif" font-size="15" font-weight="700" fill="currentColor">Northwind</text></svg>
+          </span>
+          <span class="brand-logo" title="Voltiq">
+            <svg viewBox="0 0 96 26" role="img" aria-label="Voltiq"><path d="M9 4L4 22h4l1-4h5l1 4h4L14 4H9zm1 4h3l1 6h-5l1-6z" fill="currentColor"/><text x="24" y="19" font-family="IBM Plex Sans,sans-serif" font-size="15" font-weight="700" fill="currentColor">Voltiq</text></svg>
+          </span>
+          <span class="brand-logo" title="Kestrel">
+            <svg viewBox="0 0 104 26" role="img" aria-label="Kestrel"><circle cx="11" cy="13" r="9" fill="none" stroke="currentColor" stroke-width="3"/><text x="26" y="19" font-family="IBM Plex Sans,sans-serif" font-size="15" font-weight="700" fill="currentColor">Kestrel</text></svg>
+          </span>
+          <span class="brand-logo" title="Aurora">
+            <svg viewBox="0 0 104 26" role="img" aria-label="Aurora"><path d="M4 20a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="3"/><text x="26" y="19" font-family="IBM Plex Sans,sans-serif" font-size="15" font-weight="700" fill="currentColor">Aurora</text></svg>
+          </span>
+          <span class="brand-logo" title="Slate">
+            <svg viewBox="0 0 88 26" role="img" aria-label="Slate"><rect x="4" y="5" width="16" height="16" rx="4" fill="currentColor"/><text x="26" y="19" font-family="IBM Plex Sans,sans-serif" font-size="15" font-weight="700" fill="currentColor">Slate</text></svg>
+          </span>
+          <span class="brand-logo" title="Pulse">
+            <svg viewBox="0 0 92 26" role="img" aria-label="Pulse"><path d="M3 13h4l2-6 3 12 2-6h4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="24" y="19" font-family="IBM Plex Sans,sans-serif" font-size="15" font-weight="700" fill="currentColor">Pulse</text></svg>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SPOTLIGHT ===== -->
+    <section class="section reveal" id="spotlight" aria-label="Category spotlights">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Featured departments</span>
+            <h2>Where the deals are deepest</h2>
+          </div>
+        </div>
+        <div class="spot-grid">
+          <article class="spot">
+            <div class="spot-bg" aria-hidden="true"><img src="img/spot-electronics.jpg" alt=""></div>
+            <div class="spot-body">
+              <span class="tag tag-gold">Electronics Week</span>
+              <h3>Gadgets under $100</h3>
+              <p>Chargers, cameras, smart plugs and the little upgrades that add up.</p>
+              <a class="spot-cta" href="#bestsellers">Explore gadgets
+                <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+              </a>
+            </div>
+          </article>
+          <article class="spot">
+            <div class="spot-bg" aria-hidden="true"><img src="img/spot-home.jpg" alt=""></div>
+            <div class="spot-body">
+              <span class="tag tag-teal">Home refresh</span>
+              <h3>Kitchen &amp; living</h3>
+              <p>Appliances and decor to make every room work harder.</p>
+              <a class="spot-cta" href="#bestsellers">Shop home
+                <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+              </a>
+            </div>
+          </article>
+          <article class="spot">
+            <div class="spot-bg" aria-hidden="true"><img src="img/spot-audio.jpg" alt=""></div>
+            <div class="spot-body">
+              <span class="tag tag-red">Sound season</span>
+              <h3>Headphones &amp; hi-fi</h3>
+              <p>From commuter buds to desktop speakers, tuned and tested.</p>
+              <a class="spot-cta" href="#bestsellers">Shop audio
+                <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BENEFITS ===== -->
+    <section class="benefits reveal" aria-label="Why shop with Bazaar">
+      <div class="wrap">
+        <div class="benefits-row">
+          <div class="benefit">
+            <span class="bi" aria-hidden="true"><svg class="svg-ico" viewBox="0 0 24 24"><path d="M3 6h11v9H3z"></path><path d="M14 9h4l3 3v3h-7"></path><circle cx="7" cy="18" r="1.8"></circle><circle cx="17" cy="18" r="1.8"></circle></svg></span>
+            <div><h4>Free 2-day shipping</h4><p>On every order over $50</p></div>
+          </div>
+          <div class="benefit">
+            <span class="bi" aria-hidden="true"><svg class="svg-ico" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
+            <div><h4>2-year warranty</h4><p>Manufacturer-backed on tech</p></div>
+          </div>
+          <div class="benefit">
+            <span class="bi" aria-hidden="true"><svg class="svg-ico" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v4h4"></path></svg></span>
+            <div><h4>30-day returns</h4><p>Free, no-questions refunds</p></div>
+          </div>
+          <div class="benefit">
+            <span class="bi" aria-hidden="true"><svg class="svg-ico" viewBox="0 0 24 24"><path d="M4 13a8 8 0 0 1 16 0"></path><rect x="2" y="13" width="4" height="7" rx="1.5"></rect><rect x="18" y="13" width="4" height="7" rx="1.5"></rect><path d="M20 20a3 3 0 0 1-3 3h-3"></path></svg></span>
+            <div><h4>24/7 support</h4><p>Real humans, any time zone</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NEWSLETTER ===== -->
+    <section class="newsletter reveal" id="newsletter" aria-label="Newsletter signup">
+      <div class="wrap">
+        <div class="nl-inner">
+          <div>
+            <span class="eyebrow" style="color:#ffe8bd;">Bazaar Insider</span>
+            <h2>Get 15% off &amp; deal alerts</h2>
+            <p>One weekly email with real price drops, restock alerts and members-only codes. No spam, unsubscribe in a tap.</p>
+          </div>
+          <div>
+            <form class="nl-form" id="nlForm" novalidate>
+              <label class="visually-hidden" for="nlEmail">Email address</label>
+              <div class="nl-field">
+                <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>
+                <input id="nlEmail" type="email" placeholder="you@email.com" autocomplete="email" required>
+              </div>
+              <button class="btn-bz btn-gold" type="submit">Subscribe &amp; save</button>
+            </form>
+            <p class="nl-msg" id="nlMsg" role="status" aria-live="polite"></p>
+            <p class="nl-note">Join 84,000 subscribers · We respect your inbox.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="f-brand">
+          <span class="brand-word">Baza<b style="color:var(--marigold)">a</b>r</span>
+          <p>The everything marketplace — 40,000+ products across electronics, home, audio and gaming, shipped fast and priced honestly.</p>
+          <ul class="f-contact">
+            <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg><span>240 Market Row, Suite 12<br>Columbus, OH 43215</span></li>
+            <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L18 13l4 1v4a2 2 0 0 1-2 2A16 16 0 0 1 4 6a2 2 0 0 1 0-2z"></path></svg><span>1-800-BAZAAR (229-227)</span></li>
+            <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg><span>help@bazaar.example</span></li>
+          </ul>
+          <div class="f-social">
+            <a href="#main" aria-label="Bazaar on X"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l7.5 9.5L4.5 20H7l5.3-5.8L16.8 20H20l-7.8-9.9L19.5 4H17l-4.8 5.3L8.2 4z" fill="currentColor" stroke="none"></path></svg></a>
+            <a href="#main" aria-label="Bazaar on Instagram"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
+            <a href="#main" aria-label="Bazaar on Facebook"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v6h4v-6h3l1-4h-4V8a1 1 0 0 1 1-1z" fill="currentColor" stroke="none"></path></svg></a>
+            <a href="#main" aria-label="Bazaar on YouTube"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"></path></svg></a>
+          </div>
+        </div>
+
+        <div>
+          <h5>Shop</h5>
+          <ul class="footer-links">
+            <li><a href="#bestsellers">Best sellers</a></li>
+            <li><a href="#flash">Today's deals</a></li>
+            <li><a href="#categories">Electronics</a></li>
+            <li><a href="#spotlight">Home &amp; kitchen</a></li>
+            <li><a href="#bestsellers">Gaming</a></li>
+            <li><a href="#bestsellers">Clearance outlet</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5>Help</h5>
+          <ul class="footer-links">
+            <li><a href="#main">Track your order</a></li>
+            <li><a href="#main">Shipping &amp; delivery</a></li>
+            <li><a href="#main">Returns &amp; refunds</a></li>
+            <li><a href="#main">Warranty claims</a></li>
+            <li><a href="#main">Payment options</a></li>
+            <li><a href="#main">Contact support</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5>Company</h5>
+          <ul class="footer-links">
+            <li><a href="#main">About Bazaar</a></li>
+            <li><a href="#main">Sell on Bazaar</a></li>
+            <li><a href="#main">Careers</a></li>
+            <li><a href="#main">Affiliate program</a></li>
+            <li><a href="#main">Press</a></li>
+          </ul>
+          <h5 style="margin-top:22px;">Get the app</h5>
+          <div class="f-apps">
+            <a class="f-app" href="#main" aria-label="Download on the App Store">
+              <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3c0 1.6-1.3 3-3 3 0-1.6 1.4-3 3-3zM7 22c-2-2-3-5-3-8 0-3 2-5 4-5 1 0 2 .7 3 .7S15 9 16 9c1.5 0 3 1 4 3-3 1.6-2.6 6 0 7-1 2-2.5 3-4 3-1 0-1.8-.6-3-.6S9 22 8 22z" fill="currentColor" stroke="none"></path></svg>
+              <span><small>Download on the</small><b>App Store</b></span>
+            </a>
+            <a class="f-app" href="#main" aria-label="Get it on Google Play">
+              <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3l11 9L4 21z" fill="currentColor" stroke="none"></path><path d="M4 3l11 9-3 3-8 6z" fill="currentColor" stroke="none" opacity="0.6"></path></svg>
+              <span><small>Get it on</small><b>Google Play</b></span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bar">
+        <p>© 2026 Bazaar Marketplace. Free template by <a class="uc" href="https://uicookies.com">uiCookies</a>. Demo content — not a real store.</p>
+        <div class="pay-row" aria-label="Accepted payment methods">
+          <span class="pay" title="Visa"><svg viewBox="0 0 40 14" role="img" aria-label="Visa"><text x="20" y="11" font-family="IBM Plex Sans,sans-serif" font-size="10" font-weight="700" fill="#1a1f71" text-anchor="middle">VISA</text></svg></span>
+          <span class="pay" title="Mastercard"><svg viewBox="0 0 40 14" role="img" aria-label="Mastercard"><circle cx="16" cy="7" r="6" fill="#eb001b"/><circle cx="24" cy="7" r="6" fill="#f79e1b" opacity="0.85"/></svg></span>
+          <span class="pay" title="PayPal"><svg viewBox="0 0 40 14" role="img" aria-label="PayPal"><text x="20" y="11" font-family="IBM Plex Sans,sans-serif" font-size="8" font-weight="700" fill="#003087" text-anchor="middle">PayPal</text></svg></span>
+          <span class="pay" title="Amex"><svg viewBox="0 0 40 14" role="img" aria-label="American Express"><rect width="40" height="14" rx="2" fill="#006fcf"/><text x="20" y="10" font-family="IBM Plex Sans,sans-serif" font-size="7" font-weight="700" fill="#fff" text-anchor="middle">AMEX</text></svg></span>
+          <span class="pay" title="Apple Pay"><svg viewBox="0 0 40 14" role="img" aria-label="Apple Pay"><text x="20" y="11" font-family="IBM Plex Sans,sans-serif" font-size="8" font-weight="700" fill="#000" text-anchor="middle">Pay</text></svg></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- back to top -->
+  <button class="back-top" id="backTop" type="button" aria-label="Back to top">
+    <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg>
+  </button>
+
+  <!-- toast host -->
+  <div class="toast-wrap" id="toastWrap" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ===== MOBILE NAV ===== -->
+  <div class="mnav-backdrop" id="mnavBackdrop"></div>
+  <aside class="mnav" id="mnav" aria-label="Mobile menu">
+    <div class="mnav-head">
+      <span class="brand-word" style="font-size:1.5rem;">Baza<b style="color:var(--marigold)">a</b>r</span>
+      <button class="mnav-close" id="mnavClose" type="button" aria-label="Close menu">
+        <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+    <nav class="mnav-body" aria-label="Mobile departments">
+      <a href="#bestsellers"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v4H3zM5 8v12h14V8"></path></svg>Best sellers</a>
+      <a href="#flash"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z"></path></svg>Today's deals</a>
+      <div class="mnav-sep"></div>
+      <a href="#categories"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect></svg>Electronics</a>
+      <a href="#bestsellers"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-1a8 8 0 0 1 16 0v1"></path><rect x="2" y="13" width="4" height="7" rx="1.5"></rect><rect x="18" y="13" width="4" height="7" rx="1.5"></rect></svg>Audio</a>
+      <a href="#bestsellers"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="12" rx="1.5"></rect><path d="M8 20h8"></path></svg>Computers</a>
+      <a href="#spotlight"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path></svg>Home &amp; kitchen</a>
+      <a href="#bestsellers"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="5"></rect><path d="M7 10v4M5 12h4"></path></svg>Gaming</a>
+      <a href="#categories"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="6" width="10" height="12" rx="2.5"></rect></svg>Wearables</a>
+      <div class="mnav-sep"></div>
+      <a href="#main"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>My account</a>
+      <a href="#main"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"></rect><path d="M3 8h18"></path></svg>Track order</a>
+    </nav>
+  </aside>
+
+  <script src="js/vendor/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aurora Studio ANC Headphones — Bazaar Marketplace Template | uiCookies</title>
+  <meta name="description" content="Product-detail page from Bazaar, a free Bootstrap 5 marketplace template: image gallery, colour and edition variants, quantity stepper, spec table and customer reviews — all vanilla JavaScript.">
+  <meta name="theme-color" content="#0d5c63">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d5c63'/%3E%3Ctext x='16' y='23' font-family='Arial Black,sans-serif' font-size='19' font-weight='900' text-anchor='middle' fill='%23f6a609'%3EB%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===== TOP UTILITY BAR ===== -->
+  <div class="topbar">
+    <div class="wrap">
+      <div class="tb-left">
+        <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h13v10H3z"></path><path d="M16 8h3l3 3v2h-6"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg>
+        <span>Free 2-day delivery over <strong>$50</strong> · Ship to <strong>United States</strong></span>
+      </div>
+      <div class="tb-right">
+        <a class="tb-link" href="index.html">
+          <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"></rect><path d="M3 8h18"></path><circle cx="9" cy="13" r="1.4"></circle></svg>
+          Track order
+        </a>
+        <span class="tb-sep" aria-hidden="true"></span>
+        <a class="tb-link" href="index.html">Sell on Bazaar</a>
+        <span class="tb-sep" aria-hidden="true"></span>
+        <a class="tb-link" href="index.html">EN / USD</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="wrap">
+      <div class="header-main">
+        <button class="hact nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-controls="mnav" aria-expanded="false">
+          <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+          <span class="hact-txt">Menu</span>
+        </button>
+
+        <a class="brand" href="index.html" aria-label="Bazaar home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg class="svg-ico" viewBox="0 0 24 24"><path d="M3 6h18l-1.6 9.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.7L4.5 4H2"></path><circle cx="9" cy="20" r="1.4"></circle><circle cx="17" cy="20" r="1.4"></circle></svg>
+          </span>
+          <span>
+            <span class="brand-word">Baza<b>a</b>r</span>
+            <span class="brand-sub">Everything Marketplace</span>
+          </span>
+        </a>
+
+        <form class="searchbar" role="search" onsubmit="return false;">
+          <label class="visually-hidden" for="searchCat">Search category</label>
+          <select class="cat-select" id="searchCat">
+            <option>All Departments</option>
+            <option>Electronics</option>
+            <option>Audio</option>
+            <option>Computers</option>
+            <option>Home &amp; Kitchen</option>
+            <option>Gaming</option>
+          </select>
+          <label class="visually-hidden" for="searchInput">Search products</label>
+          <input id="searchInput" type="search" placeholder="Search 40,000+ products…" autocomplete="off">
+          <button class="search-btn" type="submit" aria-label="Search">
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+          </button>
+        </form>
+
+        <div class="header-actions">
+          <a class="hact" href="index.html">
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+            <span class="hact-txt">Account</span>
+          </a>
+          <button class="hact wishlist-act" type="button" aria-label="Wishlist, 2 items saved">
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg>
+            <span class="hact-txt">Wishlist</span>
+            <span class="count" data-wish-count>2</span>
+          </button>
+          <button class="hact cart" type="button" aria-label="Cart, 3 items">
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.6"></circle><circle cx="18" cy="20" r="1.6"></circle><path d="M2 3h3l2.4 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L23 7H6"></path></svg>
+            <span class="hact-txt">Cart</span>
+            <span class="count" data-cart-count>3</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <nav class="deptnav" aria-label="Departments">
+      <div class="wrap">
+        <a class="dept-all" href="index.html#categories">
+          <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+          All Departments
+        </a>
+        <a class="dept-link" href="index.html#bestsellers">Best Sellers</a>
+        <a class="dept-link" href="index.html#categories">Electronics</a>
+        <a class="dept-link" href="index.html#bestsellers">Computers</a>
+        <a class="dept-link" href="index.html#bestsellers">Audio</a>
+        <a class="dept-link" href="index.html#spotlight">Home &amp; Kitchen</a>
+        <a class="dept-link" href="index.html#bestsellers">Gaming</a>
+        <a class="dept-link hot" href="index.html#flash">Today's Deals</a>
+        <span class="dept-spacer"></span>
+        <span class="dept-phone">
+          <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 13l1 4v3a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 0-1z"></path></svg>
+          Help: 1-800-BAZAAR
+        </span>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <!-- breadcrumb -->
+      <nav class="breadcrumb-bz" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        <a href="index.html#bestsellers">Audio</a>
+        <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        <a href="index.html#bestsellers">Headphones</a>
+        <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+        <span class="cur">Aurora Studio ANC</span>
+      </nav>
+
+      <!-- PDP -->
+      <section class="pdp-grid" aria-label="Product details">
+        <!-- gallery -->
+        <div class="pdp-gallery">
+          <div class="gallery-main" id="galleryMain">
+            <span class="tag tag-red gm-badge">-32% today</span>
+            <img src="img/gal-1.jpg" alt="Aurora Studio ANC headphones — front view">
+          </div>
+          <div class="gallery-thumbs" role="group" aria-label="Product image thumbnails">
+            <button type="button" data-full="img/gal-1.jpg" aria-current="true" aria-label="View front"><img src="img/gal-1.jpg" alt="Front view thumbnail"></button>
+            <button type="button" data-full="img/gal-2.jpg" aria-current="false" aria-label="View side"><img src="img/gal-2.jpg" alt="Side view thumbnail"></button>
+            <button type="button" data-full="img/gal-3.jpg" aria-current="false" aria-label="View earcup detail"><img src="img/gal-3.jpg" alt="Earcup detail thumbnail"></button>
+            <button type="button" data-full="img/gal-4.jpg" aria-current="false" aria-label="View lifestyle"><img src="img/gal-4.jpg" alt="Lifestyle thumbnail"></button>
+          </div>
+        </div>
+
+        <!-- info -->
+        <div class="pdp-info">
+          <span class="pdp-cat">Audio · Over-ear</span>
+          <h1>Aurora Studio ANC Headphones</h1>
+          <div class="pdp-meta">
+            <span class="rating">
+              <span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span>
+            </span>
+            <a href="#tab-reviews" data-jump="reviews" class="rc" style="font-family:var(--f-mono);font-size:.8rem;">4.8 · 2,341 reviews</a>
+            <span class="sku">SKU: AUR-STU-ANC</span>
+            <span class="instock">
+              <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4L19 6"></path></svg>
+              In stock
+            </span>
+          </div>
+
+          <div class="pdp-price">
+            <span class="now">$149</span>
+            <s>$219</s>
+            <span class="tag tag-red save">Save $70</span>
+          </div>
+          <p class="pdp-installment">or 4 interest-free payments of <b>$37.25</b> with Bazaar Pay</p>
+
+          <p class="pdp-lead">Reference-tuned 40mm drivers, adaptive noise cancelling and a 40-hour battery in a fold-flat travel frame. Built for the commute, the office and the long-haul flight.</p>
+
+          <!-- color variant -->
+          <div class="variant-group" data-variant>
+            <div class="vg-label">Colour: <span data-variant-out>Graphite</span></div>
+            <div class="swatches">
+              <button class="swatch" type="button" style="background:#2b2f36" aria-label="Graphite" aria-pressed="true" data-value="Graphite"></button>
+              <button class="swatch" type="button" style="background:#efe9dd" aria-label="Ivory" aria-pressed="false" data-value="Ivory"></button>
+              <button class="swatch" type="button" style="background:#0d5c63" aria-label="Teal" aria-pressed="false" data-value="Teal"></button>
+              <button class="swatch" type="button" style="background:#c9a15a" aria-label="Sand Gold" aria-pressed="false" data-value="Sand Gold"></button>
+            </div>
+          </div>
+
+          <!-- edition variant -->
+          <div class="variant-group" data-variant>
+            <div class="vg-label">Edition: <span data-variant-out>Studio</span></div>
+            <div class="opt-btns">
+              <button class="opt-btn" type="button" aria-pressed="true" data-value="Studio">Studio</button>
+              <button class="opt-btn" type="button" aria-pressed="false" data-value="Studio+">Studio+ · LDAC</button>
+              <button class="opt-btn" type="button" aria-pressed="false" disabled>Studio Max — sold out</button>
+            </div>
+          </div>
+
+          <!-- buy row -->
+          <div class="buy-row">
+            <div class="qty-stepper" aria-label="Quantity">
+              <button type="button" data-qty="dec" aria-label="Decrease quantity">&minus;</button>
+              <label class="visually-hidden" for="qtyInput">Quantity</label>
+              <input id="qtyInput" type="number" value="1" min="1" max="10" inputmode="numeric">
+              <button type="button" data-qty="inc" aria-label="Increase quantity">+</button>
+            </div>
+            <button class="btn-bz" type="button" data-add-cart data-name="Aurora Studio ANC Headphones">
+              <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.6"></circle><circle cx="18" cy="20" r="1.6"></circle><path d="M2 3h3l2.4 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L23 7H6"></path></svg>
+              Add to cart
+            </button>
+            <button class="btn-bz btn-gold" type="button" data-add-cart data-name="Aurora Studio ANC Headphones">Buy now</button>
+          </div>
+
+          <div class="pdp-assure">
+            <div class="pa"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v9H3z"></path><path d="M14 9h4l3 3v3h-7"></path><circle cx="7" cy="18" r="1.6"></circle><circle cx="17" cy="18" r="1.6"></circle></svg><span><b>Free 2-day shipping</b> Arrives Thu, Jul 17</span></div>
+            <div class="pa"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v4h4"></path></svg><span><b>30-day returns</b> Free &amp; easy</span></div>
+            <div class="pa"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg><span><b>2-year warranty</b> Bazaar Protect</span></div>
+            <div class="pa"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2"></rect><path d="M2 9h20M6 14h6"></path></svg><span><b>Secure checkout</b> All major cards</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TABS ===== -->
+      <section class="pdp-tabs" aria-label="Product information">
+        <div class="tab-nav" role="tablist" aria-label="Product information tabs">
+          <button type="button" role="tab" data-tab="desc" aria-selected="true">Description</button>
+          <button type="button" role="tab" data-tab="specs" aria-selected="false">Specifications</button>
+          <button type="button" role="tab" data-tab="reviews" aria-selected="false">Reviews</button>
+        </div>
+
+        <div class="tab-panel active" id="tab-desc" role="tabpanel">
+          <p>The Aurora Studio ANC is our reference commuter headphone. Custom 40mm bio-cellulose drivers deliver a wide, honest soundstage, while a four-mic hybrid array cancels the drone of trains, cabins and open-plan offices without the usual pressure fatigue. A transparency mode lets the world back in with one tap.</p>
+          <p>Everything folds flat into an included hard shell, USB-C fast-charges 6 hours of playback in ten minutes, and Bluetooth multipoint keeps your laptop and phone connected at once. Physical dials — not fiddly touch panels — handle volume and calls.</p>
+          <ul class="feat-list">
+            <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4L19 6"></path></svg>Adaptive ANC with wind-noise reduction</li>
+            <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4L19 6"></path></svg>40-hour battery (ANC on), 60-hour off</li>
+            <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4L19 6"></path></svg>Bluetooth 5.3 multipoint + LDAC on Studio+</li>
+            <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4L19 6"></path></svg>Memory-foam earcups, 248g featherweight</li>
+            <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4L19 6"></path></svg>USB-C fast charge — 10 min = 6 hours</li>
+            <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4L19 6"></path></svg>Hard travel case &amp; 3.5mm cable included</li>
+          </ul>
+        </div>
+
+        <div class="tab-panel" id="tab-specs" role="tabpanel">
+          <table class="spec-table">
+            <tbody>
+              <tr><th scope="row">Driver</th><td>40mm bio-cellulose dynamic</td></tr>
+              <tr><th scope="row">Frequency response</th><td>10Hz – 40kHz</td></tr>
+              <tr><th scope="row">Noise cancelling</th><td>Hybrid adaptive, 4-mic array</td></tr>
+              <tr><th scope="row">Battery life</th><td>40h ANC on · 60h ANC off</td></tr>
+              <tr><th scope="row">Charging</th><td>USB-C · 10 min = 6h playback</td></tr>
+              <tr><th scope="row">Bluetooth</th><td>5.3, multipoint (SBC/AAC/LDAC)</td></tr>
+              <tr><th scope="row">Weight</th><td>248 g</td></tr>
+              <tr><th scope="row">In the box</th><td>Headphones, hard case, USB-C &amp; 3.5mm cables</td></tr>
+              <tr><th scope="row">Warranty</th><td>2 years (Bazaar Protect eligible)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tab-panel" id="tab-reviews" role="tabpanel">
+          <div class="review-summary">
+            <div class="rs-score">
+              <span class="big">4.8</span>
+              <span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span>
+              <small>2,341 verified ratings</small>
+            </div>
+            <div class="rs-bars">
+              <div class="rs-bar"><span class="lbl">5★</span><span class="track"><i data-fill="82"></i></span><span class="pct">82%</span></div>
+              <div class="rs-bar"><span class="lbl">4★</span><span class="track"><i data-fill="12"></i></span><span class="pct">12%</span></div>
+              <div class="rs-bar"><span class="lbl">3★</span><span class="track"><i data-fill="4"></i></span><span class="pct">4%</span></div>
+              <div class="rs-bar"><span class="lbl">2★</span><span class="track"><i data-fill="1"></i></span><span class="pct">1%</span></div>
+              <div class="rs-bar"><span class="lbl">1★</span><span class="track"><i data-fill="1"></i></span><span class="pct">1%</span></div>
+            </div>
+          </div>
+
+          <article class="review">
+            <img class="rv-av" src="img/av-1.jpg" alt="Marcus D." width="46" height="46">
+            <div>
+              <div class="rv-top"><b>Marcus D.</b><span class="verified"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4L19 6"></path></svg>Verified purchase</span><time datetime="2026-06-28">Jun 28, 2026</time></div>
+              <span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span>
+              <p>Flew Chicago to Tokyo with these and the ANC genuinely made the cabin disappear. Physical dials are such a relief after years of touch panels I kept triggering by accident. Battery outlasted the whole trip.</p>
+            </div>
+          </article>
+          <article class="review">
+            <img class="rv-av" src="img/av-2.jpg" alt="Priya N." width="46" height="46">
+            <div>
+              <div class="rv-top"><b>Priya N.</b><span class="verified"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4L19 6"></path></svg>Verified purchase</span><time datetime="2026-06-15">Jun 15, 2026</time></div>
+              <span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg class="empty" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span>
+              <p>Sound is clean and balanced, not the bass-cannon a lot of these ship with. Multipoint between my work laptop and phone just works. Half a star off only because the case is a little bulky for a jacket pocket.</p>
+            </div>
+          </article>
+          <article class="review">
+            <img class="rv-av" src="img/av-3.jpg" alt="Devon R." width="46" height="46">
+            <div>
+              <div class="rv-top"><b>Devon R.</b><span class="verified"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4L19 6"></path></svg>Verified purchase</span><time datetime="2026-05-30">May 30, 2026</time></div>
+              <span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span>
+              <p>Bought the Studio+ for LDAC and it's noticeably crisper off my phone. Comfort is the real story though — 248g means I forget I'm wearing them on 8-hour work days. Best value in this price bracket by a mile.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== RELATED ===== -->
+      <section class="section" style="padding-top:20px;" aria-label="Related products">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">You might also like</span>
+            <h2>Frequently bought together</h2>
+          </div>
+          <a class="see-all" href="index.html#bestsellers">All audio
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </a>
+        </div>
+        <div class="pgrid">
+          <article class="pcard" data-category="audio">
+            <div class="pframe">
+              <img src="img/p-earbuds.jpg" alt="Aurora Buds Pro earbuds">
+              <div class="pbadges"><span class="tag tag-red">-33%</span></div>
+              <button class="wish" type="button" aria-label="Save Aurora Buds Pro to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Audio</span>
+              <h3 class="pname"><a href="product.html">Aurora Buds Pro · ANC</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.6 (4,210)</span></div>
+              <div class="pprice"><span class="now">$99</span><s>$149</s><span class="save">Save $50</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Aurora Buds Pro">Add to cart</button>
+            </div>
+          </article>
+          <article class="pcard" data-category="audio">
+            <div class="pframe">
+              <img src="img/p-speaker.jpg" alt="Boombox Mini speaker">
+              <div class="pbadges"><span class="tag tag-red">-34%</span></div>
+              <button class="wish" type="button" aria-label="Save Boombox Mini to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Audio</span>
+              <h3 class="pname"><a href="product.html">Boombox Mini Portable Speaker</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg class="empty" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.5 (876)</span></div>
+              <div class="pprice"><span class="now">$59</span><s>$89</s><span class="save">Save $30</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Boombox Mini Speaker">Add to cart</button>
+            </div>
+          </article>
+          <article class="pcard" data-category="audio">
+            <div class="pframe">
+              <img src="img/p-headphones.jpg" alt="Aurora Studio headphones alternate">
+              <div class="pbadges"><span class="tag tag-teal">Top rated</span></div>
+              <button class="wish" type="button" aria-label="Save Aurora Studio to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Audio</span>
+              <h3 class="pname"><a href="product.html">Aurora Studio+ LDAC Edition</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.9 (1,204)</span></div>
+              <div class="pprice"><span class="now">$189</span><s>$249</s><span class="save">Save $60</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Aurora Studio+ LDAC">Add to cart</button>
+            </div>
+          </article>
+          <article class="pcard" data-category="electronics">
+            <div class="pframe">
+              <img src="img/p-smartwatch.jpg" alt="Pulse Fit 3 smartwatch">
+              <div class="pbadges"><span class="tag tag-red">-22%</span></div>
+              <button class="wish" type="button" aria-label="Save Pulse Fit 3 to wishlist" aria-pressed="false"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg></button>
+            </div>
+            <div class="pbody">
+              <span class="pcat">Wearables</span>
+              <h3 class="pname"><a href="product.html">Pulse Fit 3 GPS Smartwatch</a></h3>
+              <div class="rating"><span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg><svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.3 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9.3 9 9"/></svg></span><span class="rc">4.7 (3,902)</span></div>
+              <div class="pprice"><span class="now">$179</span><s>$229</s><span class="save">Save $50</span></div>
+              <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart data-name="Pulse Fit 3 Smartwatch">Add to cart</button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="f-brand">
+          <span class="brand-word">Baza<b style="color:var(--marigold)">a</b>r</span>
+          <p>The everything marketplace — 40,000+ products across electronics, home, audio and gaming, shipped fast and priced honestly.</p>
+          <ul class="f-contact">
+            <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg><span>240 Market Row, Suite 12<br>Columbus, OH 43215</span></li>
+            <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L18 13l4 1v4a2 2 0 0 1-2 2A16 16 0 0 1 4 6a2 2 0 0 1 0-2z"></path></svg><span>1-800-BAZAAR (229-227)</span></li>
+            <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg><span>help@bazaar.example</span></li>
+          </ul>
+          <div class="f-social">
+            <a href="index.html" aria-label="Bazaar on X"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l7.5 9.5L4.5 20H7l5.3-5.8L16.8 20H20l-7.8-9.9L19.5 4H17l-4.8 5.3L8.2 4z" fill="currentColor" stroke="none"></path></svg></a>
+            <a href="index.html" aria-label="Bazaar on Instagram"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
+            <a href="index.html" aria-label="Bazaar on Facebook"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v6h4v-6h3l1-4h-4V8a1 1 0 0 1 1-1z" fill="currentColor" stroke="none"></path></svg></a>
+            <a href="index.html" aria-label="Bazaar on YouTube"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"></path></svg></a>
+          </div>
+        </div>
+        <div>
+          <h5>Shop</h5>
+          <ul class="footer-links">
+            <li><a href="index.html#bestsellers">Best sellers</a></li>
+            <li><a href="index.html#flash">Today's deals</a></li>
+            <li><a href="index.html#categories">Electronics</a></li>
+            <li><a href="index.html#spotlight">Home &amp; kitchen</a></li>
+            <li><a href="index.html#bestsellers">Gaming</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Help</h5>
+          <ul class="footer-links">
+            <li><a href="index.html">Track your order</a></li>
+            <li><a href="index.html">Shipping &amp; delivery</a></li>
+            <li><a href="index.html">Returns &amp; refunds</a></li>
+            <li><a href="index.html">Warranty claims</a></li>
+            <li><a href="index.html">Contact support</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <ul class="footer-links">
+            <li><a href="index.html">About Bazaar</a></li>
+            <li><a href="index.html">Sell on Bazaar</a></li>
+            <li><a href="index.html">Careers</a></li>
+            <li><a href="index.html">Affiliate program</a></li>
+            <li><a href="index.html">Press</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bar">
+        <p>© 2026 Bazaar Marketplace. Free template by <a class="uc" href="https://uicookies.com">uiCookies</a>. Demo content — not a real store.</p>
+        <div class="pay-row" aria-label="Accepted payment methods">
+          <span class="pay" title="Visa"><svg viewBox="0 0 40 14" role="img" aria-label="Visa"><text x="20" y="11" font-family="IBM Plex Sans,sans-serif" font-size="10" font-weight="700" fill="#1a1f71" text-anchor="middle">VISA</text></svg></span>
+          <span class="pay" title="Mastercard"><svg viewBox="0 0 40 14" role="img" aria-label="Mastercard"><circle cx="16" cy="7" r="6" fill="#eb001b"/><circle cx="24" cy="7" r="6" fill="#f79e1b" opacity="0.85"/></svg></span>
+          <span class="pay" title="PayPal"><svg viewBox="0 0 40 14" role="img" aria-label="PayPal"><text x="20" y="11" font-family="IBM Plex Sans,sans-serif" font-size="8" font-weight="700" fill="#003087" text-anchor="middle">PayPal</text></svg></span>
+          <span class="pay" title="Amex"><svg viewBox="0 0 40 14" role="img" aria-label="American Express"><rect width="40" height="14" rx="2" fill="#006fcf"/><text x="20" y="10" font-family="IBM Plex Sans,sans-serif" font-size="7" font-weight="700" fill="#fff" text-anchor="middle">AMEX</text></svg></span>
+          <span class="pay" title="Apple Pay"><svg viewBox="0 0 40 14" role="img" aria-label="Apple Pay"><text x="20" y="11" font-family="IBM Plex Sans,sans-serif" font-size="8" font-weight="700" fill="#000" text-anchor="middle">Pay</text></svg></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-top" id="backTop" type="button" aria-label="Back to top">
+    <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg>
+  </button>
+  <div class="toast-wrap" id="toastWrap" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ===== MOBILE NAV ===== -->
+  <div class="mnav-backdrop" id="mnavBackdrop"></div>
+  <aside class="mnav" id="mnav" aria-label="Mobile menu">
+    <div class="mnav-head">
+      <span class="brand-word" style="font-size:1.5rem;">Baza<b style="color:var(--marigold)">a</b>r</span>
+      <button class="mnav-close" id="mnavClose" type="button" aria-label="Close menu">
+        <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+    <nav class="mnav-body" aria-label="Mobile departments">
+      <a href="index.html#bestsellers"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v4H3zM5 8v12h14V8"></path></svg>Best sellers</a>
+      <a href="index.html#flash"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z"></path></svg>Today's deals</a>
+      <div class="mnav-sep"></div>
+      <a href="index.html#categories"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect></svg>Electronics</a>
+      <a href="index.html#bestsellers"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-1a8 8 0 0 1 16 0v1"></path><rect x="2" y="13" width="4" height="7" rx="1.5"></rect><rect x="18" y="13" width="4" height="7" rx="1.5"></rect></svg>Audio</a>
+      <a href="index.html#spotlight"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path></svg>Home &amp; kitchen</a>
+      <a href="index.html#bestsellers"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="5"></rect></svg>Gaming</a>
+      <div class="mnav-sep"></div>
+      <a href="index.html"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>My account</a>
+    </nav>
+  </aside>
+
+  <script src="js/vendor/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

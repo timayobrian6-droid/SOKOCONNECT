@@ -34,6 +34,7 @@
     font-weight: 800;
     color: #0d5c63;
     white-space: nowrap;
+    margin-right:30px;
 }
 
 
@@ -87,6 +88,7 @@ body {
   background: var(--paper);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  background-color:#168b78;
 }
 h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 700; line-height: 1; letter-spacing: .01em; margin: 0; color: var(--ink); }
 a { color: var(--teal); text-decoration: none; }
@@ -179,7 +181,7 @@ button { font-family: inherit; }
 .brand .brand-sub { display: block; font-family: var(--f-mono); font-size: .56rem; letter-spacing: .28em; color: var(--slate); text-transform: uppercase; margin-top: 1px; }
 
 /* search cluster */
-.searchbar { flex: 1 1 auto; display: flex; align-items: stretch; border: 2px solid var(--ink); border-radius: var(--radius); overflow: hidden; background: #fff; max-width: 640px; }
+.searchbar { flex: 1 1 auto; display: flex; width: 400px; align-items: stretch; border: 2px solid var(--ink); border-radius: var(--radius); overflow: hidden; background: #fff; max-width: 640px; margin-right:50px;}
 .searchbar .cat-select { flex: none; border: 0; background: var(--line-2); color: var(--ink); font-family: var(--f-body); font-weight: 600; font-size: .85rem; padding: 0 14px; border-right: 1px solid var(--line); cursor: pointer; }
 .searchbar .cat-select:focus-visible { outline-offset: -3px; }
 .searchbar input { flex: 1 1 auto; border: 0; padding: 12px 16px; font-size: .95rem; color: var(--ink); min-width: 0; }
@@ -190,7 +192,7 @@ button { font-family: inherit; }
 .searchbar .search-btn svg { width: 21px; height: 21px; }
 
 /* header actions */
-.header-actions { display: flex; align-items: center; gap: 6px; flex: none; }
+.header-actions { display: flex; align-items: center; gap: 20px; flex: none; padding:5px; }
 .hact { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 10px; border-radius: var(--radius); color: var(--ink); background: none; border: 0; cursor: pointer; position: relative; transition: background .14s; line-height: 1; }
 .hact:hover { background: var(--line-2); color: var(--teal-deep); }
 .hact svg { width: 23px; height: 23px; color: var(--ink); }
@@ -210,7 +212,7 @@ button { font-family: inherit; }
 .dept-all svg { width: 17px; height: 17px; }
 .deptnav a.dept-link { font-size: .88rem; font-weight: 500; color: var(--ink); padding: 8px 14px; border-radius: var(--radius); white-space: nowrap; flex: none; }
 .deptnav a.dept-link:hover { background: var(--line-2); color: var(--teal-deep); }
-.deptnav a.dept-link.hot { color: var(--signal); font-weight: 600; }
+.deptnav a.dept-link.hot { color: var(--signal); font-weight: 600; margin-right:5px; }
 .deptnav .dept-spacer { flex: 1 1 auto; }
 .deptnav .dept-phone { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: .82rem; color: var(--slate); flex: none; }
 .deptnav .dept-phone svg { width: 16px; height: 16px; color: var(--teal); }

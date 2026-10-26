@@ -5,6 +5,39 @@
    Type    : Big Shoulders Display (signage) · IBM Plex Sans/Mono
    ============================================================ */
 
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+
+    background: linear-gradient(135deg, #0d5c63, #168b78);
+    color: #f6a609;
+
+    font-size: 30px;
+    font-weight: 900;
+    border-radius: 12px;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0d5c63;
+    white-space: nowrap;
+}
+
+
+
 :root {
   /* brand + functional color */
   --teal:        #0d5c63;

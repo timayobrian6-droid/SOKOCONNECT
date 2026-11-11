@@ -286,6 +286,16 @@
             b.setAttribute("aria-pressed", res.saved ? "true" : "false");
           });
           setBadges("[data-wish-count]", res.count);
+          var grid = btn.closest("[data-wishlist-page]");
+          if (grid && !res.saved) {
+            var card = btn.closest(".pcard");
+            if (card) card.remove();
+            if (!grid.querySelector(".pcard")) {
+              grid.hidden = true;
+              var empty = document.querySelector("[data-wishlist-empty]");
+              if (empty) empty.hidden = false;
+            }
+          }
           toast(res.message);
         });
       });

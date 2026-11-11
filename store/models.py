@@ -89,7 +89,7 @@ class Product(models.Model):
     def image_src(self):
         if self.image:
             return self.image.url
-        return self.image_url or f"{settings.STATIC_URL}img/p-vacuum.jpg"
+        return self.image_url or f"{settings.STATIC_URL}img/placeholder-produce.svg"
 
     @property
     def discount_percent(self):

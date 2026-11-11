@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load store_tags %}
+{% block title %}Order {{ order.number }} — SokoConnect{% endblock %}
+{% block content %}
+<div class="wrap page-section">
+  <a href="{% url 'store:order_list' %}" class="back-link">← All orders</a>
+  <h1 class="page-title">Order {{ order.number }} <span class="status status-{{ order.status }}">{{ order.get_status_display }}</span></h1>
+  <p class="muted">Placed {{ order.created_at|date:"M j, Y, H:i" }} · {{ order.get_payment_method_display }}</p>
+  {% if order.status == "pending" and order.payment_method == "mpesa" %}
+  <div class="form-alert info">Pay <b>{{ order.total|ksh }}</b> via M-Pesa Paybill <b>123456</b>, account number <b>{{ order.number }}</b>. We'll confirm your order once payment is received.</div>
+  {% endif %}
+  <div class="cart-layout">
+    <div class="form-card">
+      <h3>Items</h3>
+      <ul class="summary-items">
+        {% for item in order.items.all %}
+        <li><span>{{ item.quantity }} × {% if item.product %}<a href="{{ item.product.get_absolute_url }}">{{ item.product_name }}</a>{% else %}{{ item.product_name }}{% endif %} <small class="muted">@ {{ item.unit_price|ksh }}</small></span><b>{{ item.line_total|ksh }}</b></li>
+        {% endfor %}
+      </ul>
+      <dl class="totals">
+        <div><dt>Subtotal</dt><dd>{{ order.subtotal|ksh }}</dd></div>
+        <div><dt>Delivery</dt><dd>{% if order.delivery_fee %}{{ order.delivery_fee|ksh }}{% else %}Free{% endif %}</dd></div>
+        <div class="total"><dt>Total</dt><dd>{{ order.total|ksh }}</dd></div>
+      </dl>
+    </div>
+    <aside class="summary-card">
+      <h3>Delivery to</h3>
+      <p><b>{{ order.full_name }}</b><br>{{ order.phone }}<br>{{ order.email }}<br>{{ order.address }}<br>{{ order.town }}, {{ order.county }}</p>
+      {% if order.notes %}<p class="muted small">{{ order.notes }}</p>{% endif %}
+      {% if order.status == "pending" %}
+      <form method="post" action="{% url 'store:order_cancel' order.pk %}" data-confirm="Cancel this order?">
+        {% csrf_token %}<button class="btn-bz btn-outline btn-block" type="submit">Cancel order</button>
+      </form>
+      {% endif %}
+    </aside>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+{% load static store_tags %}
+{% block content %}
+<!-- ===== HERO ===== -->
+<section class="hero" aria-label="Featured deals">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="deal-carousel" id="dealCarousel" aria-roledescription="carousel" aria-label="Deal of the day">
+        <div class="deal-slide active">
+          <div class="deal-media">
+            <img src="https://images.unsplash.com/photo-1454179083322-198bb4daae41?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D" alt="A farm of cows" />
+          </div>
+          <div class="deal-body">
+            <span class="tag tag-gold">Quality Livestock, Better Deals</span>
+            <h2>Find Your Next Herd Here</h2>
+            <p>From healthy cattle to trusted local farmers, SokoConnect brings livestock buyers and sellers together. Discover quality livestock, compare prices, and connect directly with farmers across Kenya.</p>
+            <div class="deal-price">Your next deal starts here <span class="big">SokoConnect</span></div>
+            <a class="btn-bz btn-gold" href="{% url 'store:category' 'livestock' %}">Explore Livestock
+              <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </a>
+          </div>
+        </div>
+        <div class="deal-slide">
+          <div class="deal-media">
+            <img src="https://plus.unsplash.com/premium_photo-1726750862897-4b75116bca34?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D" alt="Best grains in the market" />
+          </div>
+          <div class="deal-body">
+            <span class="tag tag-gold">Harvest Season Deals</span>
+            <h2>Good Grains. Better Prices.</h2>
+            <p>From golden maize to nutritious beans and quality wheat, discover fresh farm produce from trusted Kenyan farmers. Compare prices, connect with sellers, and find the grains you need—all in one marketplace.</p>
+            <div class="deal-price">Quality grains, <span class="big">Farm Direct</span></div>
+            <a class="btn-bz btn-gold" href="{% url 'store:category' 'grains' %}">Explore Grains
+              <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </a>
+          </div>
+        </div>
+        <div class="deal-slide">
+          <div class="deal-media">
+            <img src="https://images.unsplash.com/photo-1625643269470-5d3e7b69fa34?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D" alt="Fresh quality meat" />
+          </div>
+          <div class="deal-body">
+            <span class="tag tag-gold">Freshness You Can Trust</span>
+            <h2>Quality Meat, Straight to Your Market</h2>
+            <p>From premium beef and tender goat meat to fresh lamb and poultry, discover quality meat from trusted farmers and suppliers. Compare prices and connect with sellers on SokoConnect.</p>
+            <div class="deal-price">Your next order starts with <span class="big">Quality</span></div>
+            <a class="btn-bz btn-gold" href="{% url 'store:category' 'meat' %}">Explore Meat
+              <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </a>
+          </div>
+        </div>
+        <button class="deal-arrow prev" type="button" aria-label="Previous deal"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+        <button class="deal-arrow next" type="button" aria-label="Next deal"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+        <div class="deal-dots" role="tablist" aria-label="Choose deal"></div>
+      </div>
+
+      <div class="promo-stack">
+        <article class="promo-card">
+          <div class="promo-bg" aria-hidden="true">
+            <img src="https://media.istockphoto.com/id/1674059748/photo/farming-portrait-of-group-of-women-in-greenhouse-and-sustainable-small-business-in.webp?a=1&b=1&s=612x612&w=0&k=20&c=EkFkJ6rWY0LGG98PAMQaLrUkGFnMLLArxgbBecyOsmA=" alt="" />
+          </div>
+          <div>
+            <span class="tag tag-gold">Welcome to SokoConnect</span><br><br>
+            <h3>Your Farm. Your Market. More Opportunities.</h3>
+            <p>Join SokoConnect for free and connect with buyers, farmers, and trusted suppliers across Kenya. Discover quality produce, compare prices, and grow your agricultural business in one place.</p>
+          </div>
+          {% if user.is_authenticated %}
+          <a class="promo-link" href="{% url 'store:seller_dashboard' %}">Start selling
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </a>
+          {% else %}
+          <a class="promo-link" href="{% url 'accounts:signup' %}">Join the Marketplace
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </a>
+          {% endif %}
+        </article>
+        <article class="promo-card alt">
+          <div class="promo-bg" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=800&q=80" alt="" />
+          </div>
+          <div>
+            <span class="tag tag-red">Market Deals</span> <br><br>
+            <h3>Fresh Produce. Competitive Prices.</h3>
+            <p>Discover affordable grains, fresh farm produce, quality meat, and livestock from trusted Kenyan farmers and suppliers. Compare offers, connect directly with sellers, and get more value for every shilling.</p>
+          </div>
+          <a class="promo-link" href="{% url 'store:product_list' %}?deals=1">Explore Market Deals
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </a>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if flash_deals %}
+<!-- ===== FLASH DEALS ===== -->
+<section class="flash reveal" id="flash" aria-label="Flash deals">
+  <div class="wrap">
+    <div class="flash-panel">
+      <div class="flash-top">
+        <div class="flash-title">
+          <span class="bolt" aria-hidden="true"><svg class="svg-ico" viewBox="0 0 24 24"><path d="M13 2L4 14h6l-1 8 9-12h-6z"></path></svg></span>
+          <div>
+            <h2>Flash Deals</h2>
+            <span class="sub">Handpicked prices, refreshed twice a day</span>
+          </div>
+        </div>
+        <div class="countdown" id="countdown" aria-label="Time remaining in this flash sale" role="timer">
+          <span class="cd-label">Ends in</span>
+          <div class="cd-units">
+            <span class="cd-box"><b data-cd="h">00</b><span>hrs</span></span>
+            <span class="cd-colon" aria-hidden="true">:</span>
+            <span class="cd-box"><b data-cd="m">00</b><span>min</span></span>
+            <span class="cd-colon" aria-hidden="true">:</span>
+            <span class="cd-box"><b data-cd="s">00</b><span>sec</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="flash-grid">
+        {% for p in flash_deals %}
+        <article class="flash-item">
+          <a href="{{ p.get_absolute_url }}" class="fi-frame">
+            <img src="{{ p.image_src }}" alt="{{ p.name }}" />
+            {% if p.discount_percent %}<span class="tag tag-red disc">-{{ p.discount_percent }}%</span>{% endif %}
+          </a>
+          <h3 class="fi-name"><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></h3>
+          <div class="fi-price">
+            <span class="now">{{ p.price|ksh }}</span>{% if p.discount_percent %}<s>{{ p.old_price|ksh }}</s>{% endif %}
+          </div>
+          <div class="fi-stock">
+            <div class="fi-bar"><i data-fill="{{ p.stock_fill }}"></i></div>
+            <small>{% if p.stock <= 10 %}Only {% endif %}<b>{{ p.stock }} left</b> — {{ p.sold_count }} sold</small>
+          </div>
+          <button class="btn-bz btn-gold btn-sm btn-block" type="button" data-add-cart="{{ p.pk }}" data-name="{{ p.name }}">Grab deal</button>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ===== POPULAR PRODUCTS ===== -->
+<section class="section reveal" id="bestsellers" aria-label="Popular farm products">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Popular picks from Kenyan farms</span>
+        <h2>Popular Farm Products</h2>
+        <p class="sub">Discover fresh produce, grains, livestock, and dairy from farmers and suppliers across Kenya.</p>
+      </div>
+      <div class="filter-tabs" role="tablist" aria-label="Filter farm products by category">
+        <button type="button" data-filter="all" aria-selected="true">All</button>
+        {% for c in filter_categories %}
+        <button type="button" data-filter="{{ c.slug }}" aria-selected="false">{{ c.name }}</button>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="pgrid">
+      {% for product in popular_products %}
+        {% include "store/_product_card.html" %}
+      {% empty %}
+        <p class="empty-state">No products yet. <a href="{% url 'store:product_create' %}">List the first one</a>.</p>
+      {% endfor %}
+    </div>
+    <div class="center-cta">
+      <a class="btn-bz btn-outline" href="{% url 'store:product_list' %}">View all products
+        <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPOTLIGHT ===== -->
+<section class="section reveal" id="spotlight" aria-label="Category spotlights">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Featured departments</span>
+        <h2>Where the deals are deepest</h2>
+      </div>
+    </div>
+    <div class="spot-grid">
+      <article class="spot">
+        <div class="spot-bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=800&q=80" alt="" /></div>
+        <div class="spot-body">
+          <span class="tag tag-gold">Livestock Week</span>
+          <h3>Cattle, goats &amp; more</h3>
+          <p>Healthy, vaccinated animals from verified livestock farmers.</p>
+          <a class="spot-cta" href="{% url 'store:category' 'livestock' %}">Explore livestock <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        </div>
+      </article>
+      <article class="spot">
+        <div class="spot-bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&w=800&q=80" alt="" /></div>
+        <div class="spot-body">
+          <span class="tag tag-teal">Farm fresh</span>
+          <h3>Fruits &amp; vegetables</h3>
+          <p>Harvested daily and delivered fresh to your door or stall.</p>
+          <a class="spot-cta" href="{% url 'store:category' 'produce' %}">Shop produce <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        </div>
+      </article>
+      <article class="spot">
+        <div class="spot-bg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80" alt="" /></div>
+        <div class="spot-body">
+          <span class="tag tag-red">Dairy season</span>
+          <h3>Milk &amp; dairy</h3>
+          <p>Fresh milk and dairy products collected every morning.</p>
+          <a class="spot-cta" href="{% url 'store:category' 'dairy' %}">Shop dairy <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BENEFITS ===== -->
+<section class="benefits reveal" aria-label="Why shop with SokoConnect">
+  <div class="wrap">
+    <div class="benefits-row">
+      <div class="benefit">
+        <span class="bi" aria-hidden="true"><svg class="svg-ico" viewBox="0 0 24 24"><path d="M3 6h11v9H3z"></path><path d="M14 9h4l3 3v3h-7"></path><circle cx="7" cy="18" r="1.8"></circle><circle cx="17" cy="18" r="1.8"></circle></svg></span>
+        <div><h4>Free delivery</h4><p>On orders over KSh 5,000</p></div>
+      </div>
+      <div class="benefit">
+        <span class="bi" aria-hidden="true"><svg class="svg-ico" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
+        <div><h4>Verified sellers</h4><p>Trusted farmers &amp; suppliers</p></div>
+      </div>
+      <div class="benefit">
+        <span class="bi" aria-hidden="true"><svg class="svg-ico" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"></rect><path d="M2 10h20"></path></svg></span>
+        <div><h4>Pay with M-Pesa</h4><p>Or cash on delivery</p></div>
+      </div>
+      <div class="benefit">
+        <span class="bi" aria-hidden="true"><svg class="svg-ico" viewBox="0 0 24 24"><path d="M4 13a8 8 0 0 1 16 0"></path><rect x="2" y="13" width="4" height="7" rx="1.5"></rect><rect x="18" y="13" width="4" height="7" rx="1.5"></rect><path d="M20 20a3 3 0 0 1-3 3h-3"></path></svg></span>
+        <div><h4>Customer support</h4><p>Call or email us any time</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEWSLETTER ===== -->
+<section class="newsletter reveal" id="newsletter" aria-label="Newsletter signup">
+  <div class="wrap">
+    <div class="nl-inner">
+      <div>
+        <span class="eyebrow" style="color: #ffe8bd ; font-size:30px">SokoConnect Insider</span> <br> <br>
+        <h2>Get 15% off &amp; deal alerts</h2>
+        <p>One weekly email with real price drops, restock alerts and members-only codes. No spam, unsubscribe in a tap.</p>
+      </div>
+      <div>
+        <form class="nl-form" id="nlForm" method="post" action="{% url 'store:newsletter' %}" novalidate>
+          {% csrf_token %}
+          <label class="visually-hidden" for="nlEmail">Email address</label>
+          <div class="nl-field">
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>
+            <input id="nlEmail" name="email" type="email" placeholder="you@email.com" autocomplete="email" required />
+          </div>
+          <button class="btn-bz btn-gold" type="submit">Subscribe &amp; save</button>
+        </form>
+        <p class="nl-msg" id="nlMsg" role="status" aria-live="polite"></p>
+        <p class="nl-note" style="width:300px;">Join 84,000 subscribers · We respect your inbox.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

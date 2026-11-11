@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}My wishlist — SokoConnect{% endblock %}
+{% block content %}
+<div class="wrap page-section">
+  <h1 class="page-title">My wishlist</h1>
+  {% if items %}
+  <div class="pgrid" data-wishlist-page>
+    {% for w in items %}{% with product=w.product %}{% include "store/_product_card.html" %}{% endwith %}{% endfor %}
+  </div>
+  {% endif %}
+  <div class="empty-state" data-wishlist-empty{% if items %} hidden{% endif %}>
+    <h3>Your wishlist is empty</h3>
+    <p>Tap the heart on any product to save it for later.</p>
+    <a class="btn-bz" href="{% url 'store:product_list' %}">Browse products</a>
+  </div>
+</div>
+{% endblock %}

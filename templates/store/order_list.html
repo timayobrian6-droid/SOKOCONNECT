@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load store_tags %}
+{% block title %}My orders — SokoConnect{% endblock %}
+{% block content %}
+<div class="wrap page-section">
+  <h1 class="page-title">My orders</h1>
+  {% if orders %}
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Order</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        {% for o in orders %}
+        <tr>
+          <td><b>{{ o.number }}</b></td>
+          <td>{{ o.created_at|date:"M j, Y" }}</td>
+          <td>{{ o.items.all|length }}</td>
+          <td>{{ o.total|ksh }}</td>
+          <td><span class="status status-{{ o.status }}">{{ o.get_status_display }}</span></td>
+          <td><a href="{{ o.get_absolute_url }}">View</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <h3>No orders yet</h3>
+    <p>When you place an order it will show up here.</p>
+    <a class="btn-bz" href="{% url 'store:product_list' %}">Start shopping</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

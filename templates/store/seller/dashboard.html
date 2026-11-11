@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load store_tags %}
+{% block title %}Seller dashboard — SokoConnect{% endblock %}
+{% block content %}
+<div class="wrap page-section">
+  <div class="page-head">
+    <h1 class="page-title">Seller dashboard</h1>
+    <a class="btn-bz btn-gold" href="{% url 'store:product_create' %}">+ List a product</a>
+  </div>
+  <h3>My listings ({{ listings|length }})</h3>
+  {% if listings %}
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th></th><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Sold</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        {% for p in listings %}
+        <tr>
+          <td><img class="table-thumb" src="{{ p.image_src }}" alt=""></td>
+          <td><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></td>
+          <td>{{ p.category.name }}</td>
+          <td>{{ p.price|ksh }}</td>
+          <td>{{ p.stock }}</td>
+          <td>{{ p.sold_count }}</td>
+          <td>{% if p.is_active %}<span class="status status-confirmed">Live</span>{% else %}<span class="status status-cancelled">Hidden</span>{% endif %}</td>
+          <td class="actions">
+            <a href="{% url 'store:product_edit' p.slug %}">Edit</a>
+            {% if p.is_active %}
+            <form method="post" action="{% url 'store:product_delete' p.slug %}" class="inline-form" data-confirm="Remove this listing from the marketplace?">{% csrf_token %}<button class="link-btn danger" type="submit">Remove</button></form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state"><p>You haven't listed any products yet.</p><a class="btn-bz" href="{% url 'store:product_create' %}">List your first product</a></div>
+  {% endif %}
+
+  <h3 style="margin-top:36px">Recent sales</h3>
+  {% if sales %}
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>Order</th><th>Date</th><th>Product</th><th>Qty</th><th>Amount</th><th>Buyer location</th><th>Status</th></tr></thead>
+      <tbody>
+        {% for s in sales %}
+        <tr><td>{{ s.order.number }}</td><td>{{ s.order.created_at|date:"M j" }}</td><td>{{ s.product_name }}</td><td>{{ s.quantity }}</td><td>{{ s.line_total|ksh }}</td><td>{{ s.order.town }}, {{ s.order.county }}</td><td><span class="status status-{{ s.order.status }}">{{ s.order.get_status_display }}</span></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="muted">No sales yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load store_tags %}
+{% block title %}{% if category %}{{ category.name }}{% elif q %}Search: {{ q }}{% else %}All products{% endif %} — SokoConnect{% endblock %}
+{% block content %}
+<div class="wrap">
+  <nav class="breadcrumb-bz" aria-label="Breadcrumb">
+    <a href="{% url 'store:home' %}">Home</a>
+    <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+    {% if category %}<a href="{% url 'store:product_list' %}">Market</a><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg><span class="cur">{{ category.name }}</span>{% else %}<span class="cur">Market</span>{% endif %}
+  </nav>
+  <section class="section" style="padding-top: 10px;">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">{{ total }} product{{ total|pluralize }}</span>
+        <h2>{% if q %}Results for “{{ q }}”{% elif category %}{{ category.name }}{% elif request.GET.deals %}Today's deals{% else %}All products{% endif %}</h2>
+        {% if category.description %}<p class="sub">{{ category.description }}</p>{% endif %}
+      </div>
+      <form class="list-toolbar" method="get">
+        {% if q %}<input type="hidden" name="q" value="{{ q }}">{% endif %}
+        {% if request.GET.deals %}<input type="hidden" name="deals" value="1">{% endif %}
+        {% if not category.slug or request.GET.category %}<input type="hidden" name="category" value="{{ request.GET.category }}">{% endif %}
+        <label class="chk"><input type="checkbox" name="in_stock" value="1" {% if request.GET.in_stock %}checked{% endif %} data-autosubmit> In stock only</label>
+        <label class="visually-hidden" for="sortSel">Sort by</label>
+        <select id="sortSel" name="sort" class="form-input form-input-sm" data-autosubmit>
+          {% for key, label in sort_options %}<option value="{{ key }}"{% if key == sort %} selected{% endif %}>{{ label }}</option>{% endfor %}
+        </select>
+        <noscript><button class="btn-bz btn-sm" type="submit">Apply</button></noscript>
+      </form>
+    </div>
+    <div class="chip-row">
+      <a class="chip{% if not category %} active{% endif %}" href="{% url 'store:product_list' %}{% if q %}?q={{ q|urlencode }}{% endif %}">All</a>
+      {% for c in nav_categories %}
+      <a class="chip{% if category.slug == c.slug %} active{% endif %}" href="{{ c.get_absolute_url }}{% if q %}?q={{ q|urlencode }}{% endif %}">{{ c.name }}</a>
+      {% endfor %}
+    </div>
+    <div class="pgrid">
+      {% for product in products %}
+        {% include "store/_product_card.html" %}
+      {% empty %}
+        <div class="empty-state" style="grid-column: 1 / -1;">
+          <h3>No products found</h3>
+          <p>Try a different search or category{% if category %}, or be the first to sell {{ category.name|lower }}{% endif %}.</p>
+          <a class="btn-bz" href="{% url 'store:product_create' %}">List a product</a>
+        </div>
+      {% endfor %}
+    </div>
+    {% if page_obj.has_other_pages %}
+    <nav class="pager" aria-label="Pagination">
+      {% if page_obj.has_previous %}<a class="btn-bz btn-outline btn-sm" href="?{% query_transform page=page_obj.previous_page_number %}">← Previous</a>{% endif %}
+      <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}<a class="btn-bz btn-outline btn-sm" href="?{% query_transform page=page_obj.next_page_number %}">Next →</a>{% endif %}
+    </nav>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

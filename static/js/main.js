@@ -1,9 +1,48 @@
 /* ============================================================
-   Bazaar — dependency-free vanilla JS. Guard-claused module inits.
+   SokoConnect — dependency-free vanilla JS. Guard-claused module inits.
    ============================================================ */
 (function () {
   "use strict";
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- server helpers ---------- */
+  function csrfToken() {
+    var meta = document.querySelector('meta[name="csrf-token"]');
+    if (meta && meta.content) return meta.content;
+    var m = document.cookie.match(/(?:^|;\s*)csrftoken=([^;]+)/);
+    return m ? decodeURIComponent(m[1]) : "";
+  }
+
+  function post(url, data) {
+    var body = new FormData();
+    Object.keys(data || {}).forEach(function (k) { body.append(k, data[k]); });
+    return fetch(url, {
+      method: "POST",
+      body: body,
+      credentials: "same-origin",
+      headers: { "X-CSRFToken": csrfToken(), "X-Requested-With": "XMLHttpRequest", Accept: "application/json" }
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (json) {
+        json._status = res.status;
+        if (res.status === 401 && json.login_url) {
+          window.location.href = json.login_url;
+        }
+        return json;
+      });
+    });
+  }
+
+  function formatKsh(n) {
+    var v = Number(n) || 0;
+    return "KSh " + v.toLocaleString("en-KE", { maximumFractionDigits: v % 1 ? 2 : 0 });
+  }
+
+  function setBadges(selector, n) {
+    document.querySelectorAll(selector).forEach(function (b) {
+      b.textContent = n;
+      b.hidden = !n;
+    });
+  }
 
   /* ---------- toast helper ---------- */
   function toast(msg) {
@@ -14,13 +53,52 @@
     t.setAttribute("role", "status");
     t.innerHTML =
       '<span class="ti"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg></span><span>' +
-      msg + "</span>";
+      escapeHtml(msg) + "</span>";
     wrap.appendChild(t);
     requestAnimationFrame(function () { t.classList.add("show"); });
     setTimeout(function () {
       t.classList.remove("show");
       setTimeout(function () { t.remove(); }, 260);
     }, 2600);
+  }
+
+  function escapeHtml(str) {
+    var d = document.createElement("div");
+    d.textContent = str == null ? "" : String(str);
+    return d.innerHTML;
+  }
+
+  /* ---------- Django messages -> toasts ---------- */
+  function initMessages() {
+    var el = document.getElementById("django-messages");
+    if (!el) return;
+    try {
+      JSON.parse(el.textContent).forEach(function (m, i) {
+        setTimeout(function () { toast(m.text); }, i * 350);
+      });
+    } catch (e) { /* ignore malformed payload */ }
+  }
+
+  /* ---------- account dropdown ---------- */
+  function initAccountMenu() {
+    var toggle = document.getElementById("accountToggle");
+    var menu = document.getElementById("accountDropdown");
+    if (!toggle || !menu) return;
+    toggle.addEventListener("click", function (e) {
+      if (window.matchMedia("(hover: none)").matches || e.detail === 0) {
+        e.preventDefault();
+      } else {
+        return;
+      }
+      var open = menu.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.addEventListener("click", function (e) {
+      if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+        menu.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
   }
 
   /* ---------- mobile nav ---------- */
@@ -89,8 +167,11 @@
     var mEl = el.querySelector('[data-cd="m"]');
     var sEl = el.querySelector('[data-cd="s"]');
     if (!hEl || !mEl || !sEl) return;
-    // target: next time the clock hits an 8h boundary from load (stable demo countdown)
-    var end = Date.now() + (7 * 3600 + 42 * 60 + 15) * 1000;
+    // deals refresh twice a day: count down to the next 12:00 / 00:00 boundary
+    var now = new Date();
+    var end = new Date(now);
+    end.setHours(now.getHours() < 12 ? 12 : 24, 0, 0, 0);
+    end = end.getTime();
     function pad(n) { return n < 10 ? "0" + n : "" + n; }
     function tick() {
       var diff = Math.max(0, end - Date.now());
@@ -118,39 +199,117 @@
 
   /* ---------- cart + add-to-cart ---------- */
   function initCart() {
-    var count = 0;
-    var badges = document.querySelectorAll('[data-cart-count]');
     var cartBtn = document.querySelector(".hact.cart");
-    function render() {
-      badges.forEach(function (b) { b.textContent = count; });
-      if (cartBtn) {
-        cartBtn.classList.add("pop");
-        setTimeout(function () { cartBtn.classList.remove("pop"); }, 340);
+    function pop() {
+      if (!cartBtn) return;
+      cartBtn.classList.add("pop");
+      setTimeout(function () { cartBtn.classList.remove("pop"); }, 340);
+    }
+    document.querySelectorAll("[data-add-cart]").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        var id = btn.getAttribute("data-add-cart");
+        if (!id) return;
+        e.preventDefault();
+        var qty = 1;
+        var qtySel = btn.getAttribute("data-qty-input");
+        if (qtySel && document.querySelector(qtySel)) qty = parseInt(document.querySelector(qtySel).value, 10) || 1;
+        btn.disabled = true;
+        post("/cart/add/" + id + "/", { quantity: qty }).then(function (res) {
+          btn.disabled = false;
+          if (res.ok) {
+            setBadges("[data-cart-count]", res.count);
+            pop();
+          }
+          if (res.message) toast(res.message);
+        }).catch(function () {
+          btn.disabled = false;
+          toast("Could not reach the server. Please try again.");
+        });
+      });
+    });
+  }
+
+  /* ---------- cart page: live quantity updates ---------- */
+  function initCartPage() {
+    var page = document.querySelector("[data-cart-page]");
+    if (!page) return;
+    function apply(res) {
+      if (!res.ok) { if (res.message) toast(res.message); return; }
+      setBadges("[data-cart-count]", res.count);
+      page.querySelectorAll("[data-cart-row]").forEach(function (row) {
+        var item = res.items[row.getAttribute("data-cart-row")];
+        if (!item) { row.remove(); return; }
+        var input = row.querySelector('input[name="quantity"]');
+        if (input) input.value = item.quantity;
+        var line = row.querySelector("[data-line-total]");
+        if (line) line.textContent = formatKsh(item.line_total);
+      });
+      var set = function (sel, v) { var el = page.querySelector(sel); if (el) el.textContent = v; };
+      set("[data-subtotal]", formatKsh(res.subtotal));
+      set("[data-delivery]", res.delivery ? formatKsh(res.delivery) : "Free");
+      set("[data-total]", formatKsh(res.total));
+      if (!res.count) {
+        page.remove();
+        var empty = document.querySelector("[data-cart-empty]");
+        if (empty) empty.hidden = false;
       }
     }
-    // seed a starting count so the badge isn't 0 on first paint
-    count = badges.length ? (parseInt(badges[0].textContent, 10) || 0) : 0;
-    document.querySelectorAll("[data-add-cart]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        count += 1;
-        render();
-        toast((btn.getAttribute("data-name") || "Item") + " added to cart");
+    page.querySelectorAll("form[data-cart-update]").forEach(function (form) {
+      var input = form.querySelector('input[name="quantity"]');
+      var timer = null;
+      function send() {
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          post(form.action, { quantity: input.value }).then(apply);
+        }, 250);
+      }
+      input.addEventListener("change", send);
+      form.addEventListener("submit", function (e) { e.preventDefault(); send(); });
+    });
+    page.querySelectorAll("form[data-cart-remove]").forEach(function (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        post(form.action, {}).then(function (res) { apply(res); if (res.message) toast(res.message); });
       });
     });
   }
 
   /* ---------- wishlist ---------- */
   function initWishlist() {
-    var badges = document.querySelectorAll('[data-wish-count]');
-    var count = badges.length ? (parseInt(badges[0].textContent, 10) || 0) : 0;
-    document.querySelectorAll(".wish").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var on = btn.getAttribute("aria-pressed") === "true";
-        btn.setAttribute("aria-pressed", on ? "false" : "true");
-        count += on ? -1 : 1;
-        if (count < 0) count = 0;
-        badges.forEach(function (b) { b.textContent = count; });
-        toast(on ? "Removed from wishlist" : "Saved to wishlist");
+    document.querySelectorAll("[data-wish]").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        var id = btn.getAttribute("data-wish");
+        post("/wishlist/toggle/" + id + "/", {}).then(function (res) {
+          if (!res.ok) return;
+          document.querySelectorAll('[data-wish="' + id + '"]').forEach(function (b) {
+            b.setAttribute("aria-pressed", res.saved ? "true" : "false");
+          });
+          setBadges("[data-wish-count]", res.count);
+          var grid = btn.closest("[data-wishlist-page]");
+          if (grid && !res.saved) {
+            var card = btn.closest(".pcard");
+            if (card) card.remove();
+            if (!grid.querySelector(".pcard")) {
+              grid.hidden = true;
+              var empty = document.querySelector("[data-wishlist-empty]");
+              if (empty) empty.hidden = false;
+            }
+          }
+          toast(res.message);
+        });
+      });
+    });
+  }
+
+  /* ---------- small form helpers ---------- */
+  function initFormHelpers() {
+    document.querySelectorAll("[data-autosubmit]").forEach(function (el) {
+      el.addEventListener("change", function () { if (el.form) el.form.submit(); });
+    });
+    document.querySelectorAll("form[data-confirm]").forEach(function (form) {
+      form.addEventListener("submit", function (e) {
+        if (!window.confirm(form.getAttribute("data-confirm"))) e.preventDefault();
       });
     });
   }
@@ -189,9 +348,22 @@
         return;
       }
       form.classList.remove("err");
-      if (msg) { msg.style.color = "#fff"; msg.textContent = "You're in! Check your inbox for a 15% welcome code."; }
-      input.value = "";
-      toast("Subscribed — welcome to Bazaar");
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) btn.disabled = true;
+      post(form.action, { email: input.value.trim() }).then(function (res) {
+        if (btn) btn.disabled = false;
+        if (!res.ok) {
+          form.classList.add("err");
+          if (msg) msg.textContent = res.message || "Something went wrong. Please try again.";
+          return;
+        }
+        if (msg) { msg.style.color = "#fff"; msg.textContent = res.message; }
+        input.value = "";
+        toast("Subscribed — welcome to SokoConnect");
+      }).catch(function () {
+        if (btn) btn.disabled = false;
+        if (msg) msg.textContent = "Could not reach the server. Please try again.";
+      });
     });
     input.addEventListener("input", function () {
       form.classList.remove("err");
@@ -262,7 +434,7 @@
   /* ---------- PDP: quantity stepper ---------- */
   function initQty() {
     document.querySelectorAll(".qty-stepper").forEach(function (st) {
-      var input = st.querySelector("input");
+      var input = st.querySelector("input[type=number]");
       var dec = st.querySelector('[data-qty="dec"]');
       var inc = st.querySelector('[data-qty="inc"]');
       if (!input) return;
@@ -274,8 +446,14 @@
         if (v > max) v = max;
         input.value = v;
       }
-      if (dec) dec.addEventListener("click", function () { input.value = (parseInt(input.value, 10) || min) - 1; clamp(); });
-      if (inc) inc.addEventListener("click", function () { input.value = (parseInt(input.value, 10) || min) + 1; clamp(); });
+      function bump(d) {
+        var before = input.value;
+        input.value = (parseInt(input.value, 10) || min) + d;
+        clamp();
+        if (input.value !== before) input.dispatchEvent(new Event("change"));
+      }
+      if (dec) dec.addEventListener("click", function () { bump(-1); });
+      if (inc) inc.addEventListener("click", function () { bump(1); });
       input.addEventListener("change", clamp);
     });
   }
@@ -306,12 +484,16 @@
 
   /* ---------- boot ---------- */
   document.addEventListener("DOMContentLoaded", function () {
+    initMessages();
+    initAccountMenu();
     initMobileNav();
     initHeroCarousel();
     initCountdown();
     initStockBars();
     initCart();
+    initCartPage();
     initWishlist();
+    initFormHelpers();
     initFilter();
     initNewsletter();
     initReveal();

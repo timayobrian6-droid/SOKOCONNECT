@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}About — SokoConnect{% endblock %}
+{% block content %}
+<div class="wrap page-section page-narrow prose">
+  <h1 class="page-title">About SokoConnect</h1>
+  <p>SokoConnect is a Kenyan agricultural marketplace that connects farmers, suppliers and buyers directly. We make it easy to discover farm-fresh produce, grains, livestock, dairy and farm supplies, compare prices and buy with confidence.</p>
+  <h3>For buyers</h3>
+  <p>Shop from verified sellers across the country, pay with M-Pesa or cash on delivery, and track every order from your account.</p>
+  <h3>For farmers &amp; suppliers</h3>
+  <p>List your products for free, reach thousands of buyers and manage your listings and sales from a simple seller dashboard.</p>
+  <p><a class="btn-bz" href="{% url 'store:seller_dashboard' %}">Start selling</a></p>
+</div>
+{% endblock %}

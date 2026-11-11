@@ -1,0 +1,223 @@
+{% load static store_tags %}<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content="{{ csrf_token }}" />
+    <title>{% block title %}SokoConnect — Kenya's farm marketplace{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Buy and sell farm-fresh produce, grains, livestock, dairy and farm supplies from trusted farmers across Kenya.{% endblock %}" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d5c63'/%3E%3Cpath d='M44 10 Q59 3 56 19 Q45 22 44 10' fill='%234caf50'/%3E%3Cpath d='M43 13 L32 28' stroke='%23a5d66a' stroke-width='3'/%3E%3Ctext x='31' y='49' font-family='Arial,sans-serif' font-size='43' font-weight='bold' text-anchor='middle' fill='%23f6a609'%3ES%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/vendor/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body data-authenticated="{{ user.is_authenticated|yesno:'true,false' }}" data-login-url="{% url 'accounts:login' %}">
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <!-- ===== HEADER ===== -->
+    <header class="site-header">
+      <div class="wrap">
+        <div class="header-main">
+          <button class="hact nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-controls="mnav" aria-expanded="false">
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+            <span class="hact-txt">Menu</span>
+          </button>
+
+          <a href="{% url 'store:home' %}" class="logo">
+            <span class="logo-icon">S</span>
+            <span class="logo-text">SokoConnect</span>
+          </a>
+
+          <form class="searchbar" role="search" action="{% url 'store:product_list' %}" method="get"
+            style="display: flex; align-items: stretch; width: 100%; max-width: 850px; height: 54px; margin: 20px auto; background: #ffffff; border: 2px solid #0d5c63; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(13, 92, 99, 0.08);">
+            <label class="visually-hidden" for="searchCat">Search category</label>
+            <select class="cat-select" id="searchCat" name="category"
+              style="width: 140px; flex-shrink: 0; padding: 0 14px; border: none; border-right: 1px solid #e0e7e9; outline: none; background: #f5f9f8; color: #0d5c63; font-size: 14px; font-weight: 600; cursor: pointer;">
+              <option value="all">All Categories</option>
+              {% for c in nav_categories %}
+              <option value="{{ c.slug }}"{% if request.GET.category == c.slug or category.slug == c.slug %} selected{% endif %}>{{ c.name }}</option>
+              {% endfor %}
+            </select>
+            <label class="visually-hidden" for="searchInput">Search products</label>
+            <input id="searchInput" name="q" type="search" value="{{ request.GET.q }}" placeholder="Search for a product" autocomplete="off"
+              style="flex: 1; min-width: 0; padding: 0 18px; border: none; outline: none; background: #ffffff; color: #263238; font-size: 14px;" />
+            <button class="search-btn" type="submit" aria-label="Search"
+              style="display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 110px; padding: 0 20px; border: none; background: #0d5c63; color: #ffffff; font-size: 14px; font-weight: 700; cursor: pointer;">
+              <svg class="svg-ico" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              Search
+            </button>
+          </form>
+
+          <div class="header-actions">
+            <div class="account-menu">
+              <a class="hact" href="{% if user.is_authenticated %}{% url 'accounts:account' %}{% else %}{% url 'accounts:login' %}{% endif %}" id="accountToggle" aria-haspopup="true" aria-expanded="false">
+                <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+                <span class="hact-txt">{% if user.is_authenticated %}Hi, {{ user.first_name|default:user.username|truncatechars:12 }}{% else %}My Account{% endif %}</span>
+              </a>
+              <div class="account-dropdown" id="accountDropdown" role="menu">
+                {% if user.is_authenticated %}
+                  <a href="{% url 'accounts:account' %}" role="menuitem">My account</a>
+                  <a href="{% url 'store:order_list' %}" role="menuitem">My orders</a>
+                  <a href="{% url 'store:wishlist' %}" role="menuitem">Wishlist</a>
+                  <a href="{% url 'store:seller_dashboard' %}" role="menuitem">{% if user.profile.is_seller %}Seller dashboard{% else %}Sell on SokoConnect{% endif %}</a>
+                  {% if user.is_staff %}<a href="{% url 'admin:index' %}" role="menuitem">Admin</a>{% endif %}
+                  <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}<button type="submit" role="menuitem">Log out</button></form>
+                {% else %}
+                  <a class="btn-bz btn-sm btn-block" href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}" role="menuitem">Log in</a>
+                  <a href="{% url 'accounts:signup' %}?next={{ request.get_full_path|urlencode }}" role="menuitem">New here? Create an account</a>
+                {% endif %}
+              </div>
+            </div>
+
+            <a class="hact" href="{% url 'store:page' 'help' %}" aria-label="Get help">
+              <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M9.6 9a2.5 2.5 0 1 1 4.4 1.6c-1.2 1-2 1.4-2 3"></path><circle cx="12" cy="17" r="0.5"></circle></svg>
+              <span class="hact-txt">Help</span>
+            </a>
+
+            <a class="hact wishlist-act" href="{% url 'store:wishlist' %}" aria-label="Wishlist">
+              <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg>
+              <span class="hact-txt">Wishlist</span>
+              <span class="count" data-wish-count{% if not wishlist_count %} hidden{% endif %}>{{ wishlist_count }}</span>
+            </a>
+            <a class="hact cart" href="{% url 'store:cart' %}" aria-label="Cart">
+              <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.6"></circle><circle cx="18" cy="20" r="1.6"></circle><path d="M2 3h3l2.4 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L23 7H6"></path></svg>
+              <span class="hact-txt">My Cart</span>
+              <span class="count" data-cart-count{% if not cart_count %} hidden{% endif %}>{{ cart_count }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <nav class="deptnav" aria-label="Departments">
+        <div class="wrap" style="display: flex; align-items: center; gap: 22px;">
+          <a class="dept-all" href="{% url 'store:product_list' %}">
+            <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+            Explore Market
+          </a>
+          {% for c in nav_categories %}
+          <a class="dept-link{% if category.slug == c.slug %} active{% endif %}" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+          {% endfor %}
+          <a href="{% url 'store:product_list' %}?deals=1"
+            style="margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; background: linear-gradient(135deg, #ff3d2e 0%, #ff6b00 100%); color: #ffffff; font-size: 13px; font-weight: 900; letter-spacing: 0.4px; text-decoration: none; text-transform: uppercase; border-radius: 9px; border: 1px solid #ff8a50; box-shadow: 0 4px 14px rgba(255, 75, 30, 0.35); white-space: nowrap; transition: transform 0.2s ease, box-shadow 0.2s ease;"
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 7px 20px rgba(255,75,30,0.5)'"
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 14px rgba(255,75,30,0.35)'">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 10-12h-7l1-8z"></path></svg>
+            Today's Deals
+            <span style="background: #ffffff; color: #f04423; padding: 3px 6px; border-radius: 4px; font-size: 10px; font-weight: 900;">HOT</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-top">
+          <div class="f-brand">
+            <span class="brand-word">S<b style="color: var(--marigold)">O</b>k<b style="color: var(--marigold)">O</b>C<b style="color: var(--marigold)">O</b>nnect</span>
+            <p>Your one-stop agricultural marketplace — discover farm-fresh produce, grains, livestock, dairy, and farm supplies from farmers and trusted suppliers across Kenya. Shop smarter, compare prices, and connect directly with sellers.</p>
+            <ul class="f-contact">
+              <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg><span>Kiserian lane<br />Ngong, Kajiado County</span></li>
+              <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L18 13l4 1v4a2 2 0 0 1-2 2A16 16 0 0 1 4 6a2 2 0 0 1 0-2z"></path></svg><span><a href="tel:+254717086326">254-717-086-326</a></span></li>
+              <li><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg><span><a href="mailto:help@sokoconnect.com">help@sokoconnect.com</a></span></li>
+            </ul>
+          </div>
+          <div>
+            <h5>Shop</h5>
+            <ul class="footer-links">
+              <li><a href="{% url 'store:product_list' %}?sort=popular">Best sellers</a></li>
+              <li><a href="{% url 'store:product_list' %}?deals=1">Today's deals</a></li>
+              {% for c in nav_categories|slice:":4" %}<li><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>{% endfor %}
+            </ul>
+          </div>
+          <div>
+            <h5>Help</h5>
+            <ul class="footer-links">
+              <li><a href="{% url 'store:order_list' %}">Track your order</a></li>
+              <li><a href="{% url 'store:page' 'help' %}#delivery">Delivery</a></li>
+              <li><a href="{% url 'store:page' 'help' %}#returns">Returns &amp; refunds</a></li>
+              <li><a href="{% url 'store:page' 'help' %}#payments">Payment options</a></li>
+              <li><a href="{% url 'store:contact' %}">Contact support</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5>Company</h5>
+            <ul class="footer-links">
+              <li><a href="{% url 'store:page' 'about' %}">About SokoConnect</a></li>
+              <li><a href="{% url 'store:seller_dashboard' %}">Sell on SokoConnect</a></li>
+              {% if user.is_authenticated %}
+              <li><a href="{% url 'accounts:account' %}">My account</a></li>
+              {% else %}
+              <li><a href="{% url 'accounts:signup' %}">Create an account</a></li>
+              <li><a href="{% url 'accounts:login' %}">Log in</a></li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bar">
+          <p>© {% now "Y" %} SokoConnect Marketplace. Your one and only reliable marketplace.</p>
+          <div class="pay-row" aria-label="Accepted payment methods">
+            <span class="pay" title="M-Pesa"><svg viewBox="0 0 40 14" role="img" aria-label="M-Pesa"><text x="20" y="11" font-family="IBM Plex Sans,sans-serif" font-size="8" font-weight="700" fill="#4caf50" text-anchor="middle">M-PESA</text></svg></span>
+            <span class="pay" title="Visa"><svg viewBox="0 0 40 14" role="img" aria-label="Visa"><text x="20" y="11" font-family="IBM Plex Sans,sans-serif" font-size="10" font-weight="700" fill="#1a1f71" text-anchor="middle">VISA</text></svg></span>
+            <span class="pay" title="Mastercard"><svg viewBox="0 0 40 14" role="img" aria-label="Mastercard"><circle cx="16" cy="7" r="6" fill="#eb001b" /><circle cx="24" cy="7" r="6" fill="#f79e1b" opacity="0.85" /></svg></span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <button class="back-top" id="backTop" type="button" aria-label="Back to top">
+      <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg>
+    </button>
+
+    <div class="toast-wrap" id="toastWrap" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- ===== MOBILE NAV ===== -->
+    <div class="mnav-backdrop" id="mnavBackdrop"></div>
+    <aside class="mnav" id="mnav" aria-label="Mobile menu">
+      <div class="mnav-head">
+        <span class="brand-word" style="font-size: 1.5rem">S<b style="color: var(--marigold)">O</b>k<b style="color: var(--marigold)">O</b>C<b style="color: var(--marigold)">O</b>nnect</span>
+        <button class="mnav-close" id="mnavClose" type="button" aria-label="Close menu">
+          <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+      </div>
+      <nav class="mnav-body" aria-label="Mobile departments">
+        <a href="{% url 'store:product_list' %}"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v4H3zM5 8v12h14V8"></path></svg>All products</a>
+        <a href="{% url 'store:product_list' %}?deals=1"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z"></path></svg>Today's deals</a>
+        <div class="mnav-sep"></div>
+        {% for c in nav_categories %}
+        <a href="{{ c.get_absolute_url }}"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>{{ c.name }}</a>
+        {% endfor %}
+        <div class="mnav-sep"></div>
+        {% if user.is_authenticated %}
+        <a href="{% url 'accounts:account' %}"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>My account</a>
+        <a href="{% url 'store:order_list' %}"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"></rect><path d="M3 8h18"></path></svg>My orders</a>
+        <a href="{% url 'store:seller_dashboard' %}"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path></svg>Sell on SokoConnect</a>
+        <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}<button type="submit" class="mnav-btn"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"></path></svg>Log out</button></form>
+        {% else %}
+        <a href="{% url 'accounts:login' %}"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Log in</a>
+        <a href="{% url 'accounts:signup' %}"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Create account</a>
+        {% endif %}
+      </nav>
+    </aside>
+
+    {% if messages %}
+    <script id="django-messages" type="application/json">[{% for m in messages %}{"level": "{{ m.tags|escapejs }}", "text": "{{ m|escapejs }}"}{% if not forloop.last %},{% endif %}{% endfor %}]</script>
+    {% endif %}
+    <script src="{% static 'js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

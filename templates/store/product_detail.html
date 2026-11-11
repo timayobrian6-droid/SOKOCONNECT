@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load store_tags %}
+{% block title %}{{ product.name }} — SokoConnect{% endblock %}
+{% block meta_description %}{{ product.description|truncatechars:150 }}{% endblock %}
+{% block content %}
+<div class="wrap">
+  <nav class="breadcrumb-bz" aria-label="Breadcrumb">
+    <a href="{% url 'store:home' %}">Home</a>
+    <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+    <a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a>
+    <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+    <span class="cur">{{ product.name }}</span>
+  </nav>
+
+  <section class="pdp-grid" aria-label="Product details">
+    <div class="pdp-gallery">
+      <div class="gallery-main" id="galleryMain">
+        {% if product.discount_percent %}<span class="tag tag-red gm-badge">-{{ product.discount_percent }}% today</span>{% endif %}
+        <img src="{{ product.image_src }}" alt="{{ product.name }}">
+      </div>
+    </div>
+
+    <div class="pdp-info">
+      <span class="pdp-cat">{{ product.category.name }}{% if product.subcategory %} · {{ product.subcategory }}{% endif %}</span>
+      <h1>{{ product.name }}</h1>
+      <div class="pdp-meta">
+        <span class="rating">{% stars summary.rating %}</span>
+        <a href="#tab-reviews" data-jump="reviews" class="rc" style="font-family:var(--f-mono);font-size:.8rem;">{% if summary.count %}{{ summary.rating }} · {{ summary.count }} review{{ summary.count|pluralize }}{% else %}Be the first to review{% endif %}</a>
+        {% if product.location %}<span class="sku">📍 {{ product.location }}</span>{% endif %}
+        {% if product.in_stock %}
+        <span class="instock"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4L19 6"></path></svg>{{ product.stock }} in stock</span>
+        {% else %}
+        <span class="instock out">Out of stock</span>
+        {% endif %}
+      </div>
+      <div class="pdp-price">
+        <span class="now">{{ product.price|ksh }}</span>
+        {% if product.discount_percent %}<s>{{ product.old_price|ksh }}</s><span class="tag tag-red save">Save {{ product.savings|ksh }}</span>{% endif %}
+      </div>
+      {% if product.unit %}<p class="pdp-installment">Price {{ product.unit }}</p>{% endif %}
+      <p class="pdp-lead">{{ product.description|truncatewords:40 }}</p>
+
+      <form class="buy-row" method="post" action="{% url 'store:cart_add' product.pk %}" data-pdp-form>
+        {% csrf_token %}
+        <div class="qty-stepper" aria-label="Quantity">
+          <button type="button" data-qty="dec" aria-label="Decrease quantity">&minus;</button>
+          <label class="visually-hidden" for="qtyInput">Quantity</label>
+          <input id="qtyInput" name="quantity" type="number" value="1" min="1" max="{{ product.stock|default:1 }}" inputmode="numeric">
+          <button type="button" data-qty="inc" aria-label="Increase quantity">+</button>
+        </div>
+        <button class="btn-bz" type="submit" data-add-cart="{{ product.pk }}" data-name="{{ product.name }}" data-qty-input="#qtyInput"{% if not product.in_stock %} disabled{% endif %}>
+          <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.6"></circle><circle cx="18" cy="20" r="1.6"></circle><path d="M2 3h3l2.4 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L23 7H6"></path></svg>
+          Add to cart
+        </button>
+        <button class="btn-bz btn-gold" type="submit" name="buy_now" value="1"{% if not product.in_stock %} disabled{% endif %}>Buy now</button>
+        <button class="btn-bz btn-outline wish-inline" type="button" data-wish="{{ product.pk }}" aria-pressed="{% if product.pk in wishlist_ids %}true{% else %}false{% endif %}" aria-label="Save to wishlist">
+          <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg>
+        </button>
+      </form>
+
+      <div class="pdp-assure">
+        <div class="pa"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v9H3z"></path><path d="M14 9h4l3 3v3h-7"></path><circle cx="7" cy="18" r="1.6"></circle><circle cx="17" cy="18" r="1.6"></circle></svg><span><b>Countrywide delivery</b> Free over KSh 5,000</span></div>
+        <div class="pa"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"></path><path d="M9 12l2 2 4-4"></path></svg><span><b>Verified seller</b> {% if product.seller %}{{ product.seller.get_full_name|default:product.seller.username }}{% else %}SokoConnect{% endif %}</span></div>
+        <div class="pa"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v4h4"></path></svg><span><b>Quality guarantee</b> Report issues within 24h</span></div>
+        <div class="pa"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2"></rect><path d="M2 9h20M6 14h6"></path></svg><span><b>Secure checkout</b> M-Pesa or cash</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pdp-tabs" aria-label="Product information">
+    <div class="tab-nav" role="tablist" aria-label="Product information tabs">
+      <button type="button" role="tab" data-tab="desc" aria-selected="true">Description</button>
+      <button type="button" role="tab" data-tab="specs" aria-selected="false">Details</button>
+      <button type="button" role="tab" data-tab="reviews" aria-selected="false">Reviews ({{ reviews|length }})</button>
+    </div>
+    <div class="tab-panel active" id="tab-desc" role="tabpanel">
+      {{ product.description|linebreaks|default:"<p>No description provided.</p>" }}
+    </div>
+    <div class="tab-panel" id="tab-specs" role="tabpanel">
+      <table class="spec-table">
+        <tbody>
+          <tr><th scope="row">Category</th><td>{{ product.category.name }}</td></tr>
+          {% if product.subcategory %}<tr><th scope="row">Type</th><td>{{ product.subcategory }}</td></tr>{% endif %}
+          {% if product.unit %}<tr><th scope="row">Unit</th><td>{{ product.unit }}</td></tr>{% endif %}
+          {% if product.location %}<tr><th scope="row">Location</th><td>{{ product.location }}</td></tr>{% endif %}
+          <tr><th scope="row">Available</th><td>{{ product.stock }}</td></tr>
+          <tr><th scope="row">Sold</th><td>{{ product.sold_count }}</td></tr>
+          <tr><th scope="row">Seller</th><td>{% if product.seller %}{{ product.seller.get_full_name|default:product.seller.username }}{% else %}SokoConnect{% endif %}</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-panel" id="tab-reviews" role="tabpanel">
+      <div class="review-summary">
+        <div class="rs-score">
+          <span class="big">{{ summary.rating|default:"–" }}</span>
+          {% stars summary.rating %}
+          <small>{{ summary.count }} rating{{ summary.count|pluralize }}</small>
+        </div>
+        <div class="rs-bars">
+          {% for b in breakdown %}
+          <div class="rs-bar"><span class="lbl">{{ b.star }}★</span><span class="track"><i data-fill="{{ b.pct }}"></i></span><span class="pct">{{ b.pct }}%</span></div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="review-form-card">
+        {% if user.is_authenticated %}
+        <h3>{% if user_review %}Update your review{% else %}Write a review{% endif %}</h3>
+        <form method="post" class="stack-form">
+          {% csrf_token %}
+          {% for field in review_form %}{% include "store/_form_field.html" %}{% endfor %}
+          <button class="btn-bz" type="submit">{% if user_review %}Update review{% else %}Submit review{% endif %}</button>
+        </form>
+        {% else %}
+        <p><a href="{% url 'accounts:login' %}?next={{ request.path|urlencode }}">Log in</a> or <a href="{% url 'accounts:signup' %}?next={{ request.path|urlencode }}">create an account</a> to write a review.</p>
+        {% endif %}
+      </div>
+
+      {% for r in reviews %}
+      <article class="review">
+        <span class="rv-av rv-initial" aria-hidden="true">{{ r.user.first_name|default:r.user.username|first|upper }}</span>
+        <div>
+          <div class="rv-top"><b>{{ r.user.get_full_name|default:r.user.username }}</b>{% if r.verified_purchase %}<span class="verified"><svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4L19 6"></path></svg>Verified purchase</span>{% endif %}<time datetime="{{ r.created_at|date:'c' }}">{{ r.created_at|date:"M j, Y" }}</time></div>
+          {% stars r.rating %}
+          <p>{{ r.comment|linebreaksbr }}</p>
+        </div>
+      </article>
+      {% empty %}
+      <p class="muted">No written reviews yet.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% if related %}
+  <section class="section" style="padding-top:20px;" aria-label="Related products">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">You might also like</span>
+        <h2>More in {{ product.category.name }}</h2>
+      </div>
+      <a class="see-all" href="{{ product.category.get_absolute_url }}">View all
+        <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </a>
+    </div>
+    <div class="pgrid">
+      {% for product in related %}{% include "store/_product_card.html" %}{% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

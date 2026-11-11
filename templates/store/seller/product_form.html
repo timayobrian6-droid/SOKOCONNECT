@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} — SokoConnect{% endblock %}
+{% block content %}
+<div class="wrap page-section page-narrow">
+  <a href="{% url 'store:seller_dashboard' %}" class="back-link">← Seller dashboard</a>
+  <h1 class="page-title">{{ title }}</h1>
+  <form method="post" enctype="multipart/form-data" class="form-card" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="form-alert">{{ form.non_field_errors }}</div>{% endif %}
+    {% include "store/_form_field.html" with field=form.name %}
+    <div class="form-grid">
+      {% include "store/_form_field.html" with field=form.category %}
+      {% include "store/_form_field.html" with field=form.subcategory %}
+      {% include "store/_form_field.html" with field=form.price %}
+      {% include "store/_form_field.html" with field=form.old_price %}
+      {% include "store/_form_field.html" with field=form.unit %}
+      {% include "store/_form_field.html" with field=form.stock %}
+    </div>
+    {% include "store/_form_field.html" with field=form.location %}
+    {% include "store/_form_field.html" with field=form.description %}
+    <div class="form-grid">
+      {% include "store/_form_field.html" with field=form.image %}
+      {% include "store/_form_field.html" with field=form.image_url %}
+    </div>
+    {% include "store/_form_field.html" with field=form.is_active %}
+    <button class="btn-bz btn-gold" type="submit">Save listing</button>
+  </form>
+</div>
+{% endblock %}

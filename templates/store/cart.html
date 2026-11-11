@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load store_tags %}
+{% block title %}Your cart — SokoConnect{% endblock %}
+{% block content %}
+<div class="wrap page-section">
+  <h1 class="page-title">Your cart</h1>
+  {% if items %}
+  <div class="cart-layout" data-cart-page>
+    <div class="cart-items">
+      {% for item in items %}
+      <div class="cart-row" data-cart-row="{{ item.product_id }}">
+        <a href="{{ item.product.get_absolute_url }}" class="cart-thumb"><img src="{{ item.product.image_src }}" alt="{{ item.product.name }}"></a>
+        <div class="cart-info">
+          <a class="cart-name" href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a>
+          <small class="muted">{{ item.product.price|ksh }}{% if item.product.unit %} {{ item.product.unit }}{% endif %}</small>
+          <form method="post" action="{% url 'store:cart_remove' item.product_id %}" class="inline-form" data-cart-remove>
+            {% csrf_token %}<button type="submit" class="link-btn">Remove</button>
+          </form>
+        </div>
+        <form method="post" action="{% url 'store:cart_update' item.product_id %}" class="qty-stepper" data-cart-update>
+          {% csrf_token %}
+          <button type="button" data-qty="dec" aria-label="Decrease quantity">&minus;</button>
+          <input name="quantity" type="number" value="{{ item.quantity }}" min="1" max="{{ item.product.stock|default:1 }}" inputmode="numeric" aria-label="Quantity">
+          <button type="button" data-qty="inc" aria-label="Increase quantity">+</button>
+          <noscript><button type="submit">Update</button></noscript>
+        </form>
+        <b class="cart-line" data-line-total>{{ item.line_total|ksh }}</b>
+      </div>
+      {% endfor %}
+    </div>
+    <aside class="summary-card">
+      <h3>Order summary</h3>
+      <dl>
+        <div><dt>Subtotal</dt><dd data-subtotal>{{ subtotal|ksh }}</dd></div>
+        <div><dt>Delivery</dt><dd data-delivery>{% if delivery %}{{ delivery|ksh }}{% else %}Free{% endif %}</dd></div>
+        <div class="total"><dt>Total</dt><dd data-total>{{ total|ksh }}</dd></div>
+      </dl>
+      <p class="muted small">Free delivery on orders over KSh 5,000.</p>
+      <a class="btn-bz btn-gold btn-block" href="{% url 'store:checkout' %}">Proceed to checkout</a>
+      <a class="btn-bz btn-outline btn-block" href="{% url 'store:product_list' %}" style="margin-top:10px">Continue shopping</a>
+    </aside>
+  </div>
+  {% endif %}
+  <div class="empty-state" data-cart-empty{% if items %} hidden{% endif %}>
+    <h3>Your cart is empty</h3>
+    <p>Browse fresh produce, grains, livestock and more from Kenyan farmers.</p>
+    <a class="btn-bz" href="{% url 'store:product_list' %}">Start shopping</a>
+  </div>
+</div>
+{% endblock %}

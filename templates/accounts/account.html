@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load store_tags %}
+{% block title %}My account — SokoConnect{% endblock %}
+{% block content %}
+<div class="wrap page-section">
+  <div class="page-head">
+    <h1 class="page-title">My account</h1>
+    <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}<button class="btn-bz btn-outline btn-sm" type="submit">Log out</button></form>
+  </div>
+  <div class="account-links">
+    <a href="{% url 'store:order_list' %}" class="acct-tile"><b>My orders</b><small>Track and manage orders</small></a>
+    <a href="{% url 'store:wishlist' %}" class="acct-tile"><b>Wishlist</b><small>{{ wishlist_count }} saved item{{ wishlist_count|pluralize }}</small></a>
+    <a href="{% url 'store:seller_dashboard' %}" class="acct-tile"><b>{% if user.profile.is_seller %}Seller dashboard{% else %}Start selling{% endif %}</b><small>List and manage products</small></a>
+    <a href="{% url 'accounts:password_change' %}" class="acct-tile"><b>Password</b><small>Change your password</small></a>
+  </div>
+  <div class="cart-layout">
+    <form method="post" class="form-card" novalidate>
+      {% csrf_token %}
+      <h3>Profile details</h3>
+      <p class="muted small">Username: <b>{{ user.username }}</b> · Member since {{ user.date_joined|date:"M Y" }}</p>
+      <div class="form-grid">
+        {% for field in user_form %}{% include "store/_form_field.html" %}{% endfor %}
+        {% include "store/_form_field.html" with field=profile_form.phone %}
+        {% include "store/_form_field.html" with field=profile_form.county %}
+        {% include "store/_form_field.html" with field=profile_form.town %}
+      </div>
+      {% include "store/_form_field.html" with field=profile_form.address %}
+      {% include "store/_form_field.html" with field=profile_form.is_seller %}
+      <button class="btn-bz" type="submit">Save changes</button>
+    </form>
+    <aside class="summary-card">
+      <h3>Recent orders</h3>
+      {% if recent_orders %}
+      <ul class="summary-items">
+        {% for o in recent_orders %}
+        <li><a href="{{ o.get_absolute_url }}">{{ o.number }}</a><span class="status status-{{ o.status }}">{{ o.get_status_display }}</span><b>{{ o.total|ksh }}</b></li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="muted">No orders yet.</p>
+      {% endif %}
+    </aside>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Page not found — SokoConnect{% endblock %}
+{% block content %}
+<div class="wrap page-narrow empty-state">
+  <h1>Page not found</h1>
+  <p>The page you're looking for doesn't exist or was moved.</p>
+  <a class="btn-bz" href="{% url 'store:home' %}">Back to the market</a>
+</div>
+{% endblock %}

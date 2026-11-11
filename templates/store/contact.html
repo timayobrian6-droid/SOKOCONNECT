@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Contact us — SokoConnect{% endblock %}
+{% block content %}
+<div class="wrap page-section page-narrow">
+  <h1 class="page-title">Contact support</h1>
+  <p class="muted">Call <a href="tel:+254717086326">254-717-086-326</a>, email <a href="mailto:help@sokoconnect.com">help@sokoconnect.com</a>, or send us a message below.</p>
+  <form method="post" class="form-card stack-form" novalidate>
+    {% csrf_token %}
+    {% for field in form %}{% include "store/_form_field.html" %}{% endfor %}
+    <button class="btn-bz" type="submit">Send message</button>
+  </form>
+</div>
+{% endblock %}

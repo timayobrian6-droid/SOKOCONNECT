@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="wrap auth-wrap">
+  <div class="auth-card">
+    <a href="{% url 'store:home' %}" class="logo auth-logo"><span class="logo-icon">S</span><span class="logo-text">SokoConnect</span></a>
+    {% block auth_content %}{% endblock %}
+  </div>
+</div>
+{% endblock %}

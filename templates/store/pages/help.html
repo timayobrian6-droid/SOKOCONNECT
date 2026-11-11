@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Help centre — SokoConnect{% endblock %}
+{% block content %}
+<div class="wrap page-section page-narrow prose">
+  <h1 class="page-title">Help centre</h1>
+  <h3 id="orders">Tracking your order</h3>
+  <p>Log in and open <a href="{% url 'store:order_list' %}">My orders</a> to see the status of every order. Pending orders can be cancelled from the order page.</p>
+  <h3 id="delivery">Delivery</h3>
+  <p>We deliver countrywide. Delivery is free for orders over KSh 5,000; otherwise a flat fee of KSh 250 applies.</p>
+  <h3 id="payments">Payment options</h3>
+  <p>Pay via M-Pesa (Paybill instructions are shown after checkout), cash on delivery, or card on delivery.</p>
+  <h3 id="returns">Returns &amp; refunds</h3>
+  <p>If a product arrives damaged or not as described, contact us within 24 hours and we'll arrange a replacement or refund.</p>
+  <h3>Selling on SokoConnect</h3>
+  <p>Create an account, open the <a href="{% url 'store:seller_dashboard' %}">seller dashboard</a> and list your products — it's free.</p>
+  <p>Still need help? <a href="{% url 'store:contact' %}">Contact support</a>.</p>
+</div>
+{% endblock %}

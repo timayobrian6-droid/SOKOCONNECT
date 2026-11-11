@@ -1,0 +1,25 @@
+{% load store_tags %}
+<article class="pcard" data-category="{{ product.category.slug }}">
+  <div class="pframe">
+    <a href="{{ product.get_absolute_url }}" tabindex="-1" aria-hidden="true"><img src="{{ product.image_src }}" alt="{{ product.name }}" loading="lazy" /></a>
+    <div class="pbadges">
+      {% if product.discount_percent %}<span class="tag tag-red">-{{ product.discount_percent }}%</span>{% endif %}{% if product.badge %}<span class="tag tag-teal">{{ product.badge }}</span>{% endif %}{% if not product.in_stock %}<span class="tag tag-red">Sold out</span>{% endif %}
+    </div>
+    <button class="wish" type="button" data-wish="{{ product.pk }}" aria-label="Save {{ product.name }} to wishlist" aria-pressed="{% if product.pk in wishlist_ids %}true{% else %}false{% endif %}">
+      <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.1C1 8.8 2.4 5.5 5.6 5.1 7.7 4.8 9.4 6 12 8.7c2.6-2.7 4.3-3.9 6.4-3.6 3.2.4 4.6 3.7 3.3 6.8C19.5 16.4 12 21 12 21z"></path></svg>
+    </button>
+  </div>
+  <div class="pbody">
+    <span class="pcat">{{ product.subcategory|default:product.category.name }}</span>
+    <h3 class="pname"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+    {% with s=product.rating_summary %}
+    <div class="rating">{% stars s.rating %}<span class="rc">{% if s.count %}{{ s.rating }} ({{ s.count }}){% else %}No reviews yet{% endif %}</span></div>
+    {% endwith %}
+    <div class="pprice">
+      <span class="now">{{ product.price|ksh }}</span>{% if product.old_price and product.discount_percent %}<s>{{ product.old_price|ksh }}</s><span class="save">Save {{ product.savings|ksh }}</span>{% endif %}
+    </div>
+    <button class="btn-bz btn-outline btn-sm btn-block add-cart" type="button" data-add-cart="{{ product.pk }}" data-name="{{ product.name }}"{% if not product.in_stock %} disabled{% endif %}>
+      {% if product.in_stock %}Add to cart{% else %}Out of stock{% endif %}
+    </button>
+  </div>
+</article>

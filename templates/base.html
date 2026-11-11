@@ -59,7 +59,7 @@
 
           <div class="header-actions">
             <div class="account-menu">
-              <a class="hact" href="{% if user.is_authenticated %}{% url 'accounts:account' %}{% else %}{% url 'accounts:login' %}{% endif %}" id="accountToggle" aria-haspopup="true" aria-expanded="false">
+              <a class="hact hact-account" href="{% if user.is_authenticated %}{% url 'accounts:account' %}{% else %}{% url 'accounts:login' %}{% endif %}" id="accountToggle" aria-haspopup="true" aria-expanded="false">
                 <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
                 <span class="hact-txt">{% if user.is_authenticated %}Hi, {{ user.first_name|default:user.username|truncatechars:12 }}{% else %}My Account{% endif %}</span>
               </a>
@@ -78,7 +78,7 @@
               </div>
             </div>
 
-            <a class="hact" href="{% url 'store:page' 'help' %}" aria-label="Get help">
+            <a class="hact hact-help" href="{% url 'store:page' 'help' %}" aria-label="Get help">
               <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M9.6 9a2.5 2.5 0 1 1 4.4 1.6c-1.2 1-2 1.4-2 3"></path><circle cx="12" cy="17" r="0.5"></circle></svg>
               <span class="hact-txt">Help</span>
             </a>
@@ -98,7 +98,7 @@
       </div>
 
       <nav class="deptnav" aria-label="Departments">
-        <div class="wrap" style="display: flex; align-items: center; gap: 22px;">
+        <div class="wrap">
           <a class="dept-all" href="{% url 'store:product_list' %}">
             <svg class="svg-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
             Explore Market
@@ -106,13 +106,10 @@
           {% for c in nav_categories %}
           <a class="dept-link{% if category.slug == c.slug %} active{% endif %}" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
           {% endfor %}
-          <a href="{% url 'store:product_list' %}?deals=1"
-            style="margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; background: linear-gradient(135deg, #ff3d2e 0%, #ff6b00 100%); color: #ffffff; font-size: 13px; font-weight: 900; letter-spacing: 0.4px; text-decoration: none; text-transform: uppercase; border-radius: 9px; border: 1px solid #ff8a50; box-shadow: 0 4px 14px rgba(255, 75, 30, 0.35); white-space: nowrap; transition: transform 0.2s ease, box-shadow 0.2s ease;"
-            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 7px 20px rgba(255,75,30,0.5)'"
-            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 14px rgba(255,75,30,0.35)'">
-            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 10-12h-7l1-8z"></path></svg>
+          <a class="dept-deals" href="{% url 'store:product_list' %}?deals=1">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 10-12h-7l1-8z"></path></svg>
             Today's Deals
-            <span style="background: #ffffff; color: #f04423; padding: 3px 6px; border-radius: 4px; font-size: 10px; font-weight: 900;">HOT</span>
+            <span class="hot-pill">HOT</span>
           </a>
         </div>
       </nav>

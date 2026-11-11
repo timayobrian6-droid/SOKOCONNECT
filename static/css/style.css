@@ -728,3 +728,7 @@ button { font-family: inherit; }
 .acct-tile small { color: var(--slate); }
 .pdp-grid, .pdp-tabs { background: var(--surface); border-radius: var(--radius-lg); padding: 24px; }
 .pdp-tabs { margin-top: 24px; }
+/* text placed directly on the teal page background */
+.section-head .sub, .breadcrumb-bz, .breadcrumb-bz a, .breadcrumb-bz svg, .page-section > .muted, .prose p, .list-toolbar .chk, .pager span { color: rgba(255, 255, 255, .9); }
+.prose h3, .breadcrumb-bz .cur { color: #fff; }
+.page-section > .muted a, .prose p a, .breadcrumb-bz a:hover { color: var(--marigold); }

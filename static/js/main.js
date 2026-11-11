@@ -424,7 +424,7 @@
   /* ---------- PDP: quantity stepper ---------- */
   function initQty() {
     document.querySelectorAll(".qty-stepper").forEach(function (st) {
-      var input = st.querySelector("input");
+      var input = st.querySelector("input[type=number]");
       var dec = st.querySelector('[data-qty="dec"]');
       var inc = st.querySelector('[data-qty="inc"]');
       if (!input) return;

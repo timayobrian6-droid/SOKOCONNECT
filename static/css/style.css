@@ -56,7 +56,7 @@
   --slate-2:     #8a94a3;
   --line:        #e2e7ef;
   --line-2:      #eef1f6;
-  --paper:       #f4f6fa;   /* cool page canvas */
+  --paper:       #f5f1e8;   /* warm cream page canvas */
   --surface:     #ffffff;
   --star:        #f6a609;
 
@@ -88,7 +88,6 @@ body {
   background: var(--paper);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  background-color:#168b78;
 }
 h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 700; line-height: 1; letter-spacing: .01em; margin: 0; color: var(--ink); }
 a { color: var(--teal); text-decoration: none; }
@@ -728,10 +727,6 @@ button { font-family: inherit; }
 .acct-tile small { color: var(--slate); }
 .pdp-grid, .pdp-tabs { background: var(--surface); border-radius: var(--radius-lg); padding: 24px; }
 .pdp-tabs { margin-top: 24px; }
-/* text placed directly on the teal page background */
-.section-head .sub, .breadcrumb-bz, .breadcrumb-bz a, .breadcrumb-bz svg, .page-section > .muted, .prose p, .list-toolbar .chk, .pager span { color: rgba(255, 255, 255, .9); }
-.prose h3, .breadcrumb-bz .cur { color: #fff; }
-.page-section > .muted a, .prose p a, .breadcrumb-bz a:hover { color: var(--marigold); }
 
 /* colourful header action icons */
 .hact { gap: 4px; padding: 6px 8px; }
